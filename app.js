@@ -15,6 +15,9 @@ app.get('/user', function(req, res) {
   res.render("showUser");
 });
 
+app.get('/user/new', function(req, res) {
+  res.render('userForm');
+});
 app.listen(process.env.PORT || 3000, function() {
   console.log("The Modesto All Star Server is running");
 });
