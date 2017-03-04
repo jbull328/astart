@@ -8,7 +8,7 @@ var express = require("express"),
     app.set("view engine", "ejs");
     app.use(express.static(__dirname + '/public'));
 
-mongoose.connect('mongodb://localhost/modestoFCC');
+mongoose.connect('mongodb://localhost/modestoFCCUsers');
 var modestoFCCUsers = new mongoose.Schema({
     fName: String,
     LName: String,
@@ -33,7 +33,8 @@ app.get('/showUser/:id', function(req, res) {
     if (err) {
       console.log(err);
     } else {
-      res.render("showUser", {user: userRef});
+      console.log(userRef);
+      res.render("showUser", {userRef: userRef,});
     }
   });
 });
@@ -42,7 +43,7 @@ app.get('/user/new', function(req, res) {
   res.render('userForm');
 });
 
-app.post('/user', function(req, res) {
+app.post('/user/new', function(req, res) {
   var fName = req.body.fName;
   var lName = req.body.lName;
   var email = req.body.email;
@@ -51,8 +52,10 @@ app.post('/user', function(req, res) {
   FccUsers.create(newUser, function(err, newlyCreatedUser) {
     if (err) {
       console.log(err);
+      res.render("landing")
+    } else {
+      res.redirect("/showUser/" + newlyCreatedUser._id);
     }
-    res.redirect("/showUser/:id");
   });
 });
 
