@@ -30,3 +30,7 @@
 #infoCard {
   margin: 80px 38px;
 }
+
+#userCallout a {
+  margin-left: 18px;
+}

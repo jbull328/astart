@@ -11,16 +11,17 @@ var express = require("express"),
 mongoose.connect('mongodb://localhost/modestoFCCUsers');
 var modestoFCCUsers = new mongoose.Schema({
     fName: String,
-    LName: String,
+    lName: String,
+    currentOccupation: String,
     description: String,
     image: String,
-    email: String,
-    // projects: [
-    //     {
-    //         type: mongoose.Schema.Types.ObjectId,
-    //         ref: "project"
-    //     }
-    // ]
+    userEmail: String,
+    projects: [
+        {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: "project"
+        }
+    ]
 });
 var FccUsers = mongoose.model("FccUsers", modestoFCCUsers);
 
@@ -46,9 +47,10 @@ app.get('/user/new', function(req, res) {
 app.post('/user/new', function(req, res) {
   var fName = req.body.fName;
   var lName = req.body.lName;
-  var email = req.body.email;
-  var description = req.body.discription;
-  var newUser = {fName: fName, lName: lName, email: email, description: description,};
+  var currentOccupation = req.body.currentOccupation;
+  var userEmail = req.body.userEmail;
+  var description = req.body.description;
+  var newUser = {fName: fName, lName: lName, description: description, userEmail: userEmail,};
   FccUsers.create(newUser, function(err, newlyCreatedUser) {
     if (err) {
       console.log(err);
