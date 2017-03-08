@@ -60,19 +60,21 @@ app.post('/user/new', upload.single('avatar'), function(req, res, next) {
   var userEmail = req.body.userEmail;
   var description = req.body.description;
   var avatar = req.file.path;
+  cloudinary.uploader.upload(avatar, function(result) {
+    var imageRef = result.url;
 
-    FccUsers.create(newUser, function(err, newlyCreatedUser) {
-      cloudinary.uploader.upload(avatar, function(result) {
-        var imageRef = result.url;
-        var newUser = {fName: fName, lName: lName, description: description, userEmail: userEmail, imageRef: imageRef,};
-      console.log(result);
-    if (err) {
-      console.log(err);
-      res.render("landing")
-    } else {
-      res.redirect("/showUser/" + newlyCreatedUser._id);
-    }
-  });
+  console.log(result);
+
+  var newUser = {fName: fName, lName: lName, description: description, currentOccupation: currentOccupation, userEmail: userEmail, imageRef: imageRef,};
+  FccUsers.create(newUser, function(err, newlyCreatedUser) {
+
+  if (err) {
+    console.log(err);
+    res.render("landing")
+  } else {
+    res.redirect("/showUser/" + newlyCreatedUser._id);
+  }
+});
 });
 });
 

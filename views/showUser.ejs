@@ -2,7 +2,7 @@
 <div class="ui middle aligned stackable grid container">
 <div class="ui card four wide column" id="infoCard">
 <div class="image">
-  <img src="/img/avatars/test.png">
+  <img src="<%= userRef.imageRef %>">
 </div>
 <div class="content">
   <a class="header"><%= userRef.fName %></a>
@@ -10,7 +10,7 @@
     <span class="date">Joined in 2013</span>
   </div>
   <div class="description">
-    <%= userRef.fName %> is an art director living in New York.
+    <%= userRef.fName %> <%= userRef.currentOccupation %>
   </div>
 </div>
 <div class="extra content">
@@ -39,7 +39,7 @@
     <div class="ui card">
     <div class="content">
       <div class="right floated meta">14h</div>
-      <img class="ui avatar image" src="/img/avatars/test.png"> <%= userRef.fName %>
+      <img class="ui avatar image" src="<%= userRef.imageRef %>"> <%= userRef.fName %>
     </div>
     <div class="image">
       <img src="/img/examples/exampleTest.jpg">
