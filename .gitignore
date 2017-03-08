@@ -56,3 +56,6 @@ typings/
 
 # dotenv environment variables file
 .env
+
+#avatar images don't need to be added to git
+public/img/avatars/
