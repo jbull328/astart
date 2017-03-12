@@ -28,10 +28,27 @@ var modestoFCCUsers = new mongoose.Schema({
     projects: [
         {
             type: mongoose.Schema.Types.ObjectId,
-            ref: "project"
+            ref: "userProject"
         }
     ]
 });
+
+var projects = new mongoose.Schema({
+  projTitle: String,
+  projDescription: String,
+  projImageRef: String,
+  projLink: String,
+  projLikes: [
+    {
+
+    }
+  ] ,
+  projComments: [
+    {
+
+    }
+  ]
+})
 var FccUsers = mongoose.model("FccUsers", modestoFCCUsers);
 
 app.get("/", function(req, res) {
@@ -75,6 +92,17 @@ app.post('/user/new', upload.single('avatar'), function(req, res, next) {
     res.redirect("/showUser/" + newlyCreatedUser._id);
   }
 });
+});
+});
+
+app.get('/showUser/:_id/projects/new', function(req, res) {
+  FccUsers.findById(req.params._id, function(err, userRef) {
+  if (err) {
+    console.log(err);
+  } else {
+    console.log(userRef);
+    res.render("projects/new", {userRef: userRef,});
+  }
 });
 });
 

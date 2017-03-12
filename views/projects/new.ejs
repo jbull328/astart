@@ -1,0 +1,31 @@
+<% include ../partials/head %>
+
+<div class="ui container" id="">
+
+  <div class="ui container" id="">
+    <div class="ui huge header">Add a Project</div>
+    <form class="ui form" action="/showUser/<%= userRef.id %>/projects/new" method="POST" enctype="multipart/form-data">
+    <div class="field">
+      <label>Project Title</label>
+      <input type="text" name="projTitle" placeholder="Title of Your Project">
+    </div>
+    <div class="field">
+      <label>Description</label>
+      <input type="text" name="description" placeholder="Description">
+    </div>
+    <div class="field">
+      <label>Project Image</label>
+      <input type="file" name="ProjImage" placeholder="Example of Your Project">
+    </div>
+    <div class="field">
+      <label>Link</label>
+      <input type="text" name="projLink" placeholder="Link to your project">
+    </div>
+    <button class="ui button" type="submit">Submit</button>
+    <a href="/showUser/<%= userRef.id %>" class="ui button">Cancel</a>
+   </form>
+
+  </div>
+</div>
+
+<% include ../partials/foot %>

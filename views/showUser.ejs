@@ -30,7 +30,7 @@
 </div>
 <div class="row">
   <div class="large ui buttons center aligned column" id="userCallout">
-    <a href="#"><button class="ui button">Add a Project</button></a>
+    <a href="/showUser/<%= userRef._id %>/projects/new"><button class="ui button">Add a Project</button></a>
     <a href="#"><button class="ui button">Add a Blog Post</button></a>
   </div>
 </div>
@@ -40,6 +40,7 @@
     <div class="content">
       <div class="right floated meta">14h</div>
       <img class="ui avatar image" src="<%= userRef.imageRef %>"> <%= userRef.fName %>
+      <div class="ui text center">Project Title</div>
     </div>
     <div class="image">
       <img src="/img/examples/exampleTest.jpg">
