@@ -5,6 +5,7 @@ var express = require("express"),
     multer = require("multer"),
     path = require('path'),
     upload = multer({ dest: 'public/img/avatars' }),
+    stormpath = require('express-stormpath'),
     app = express();
 
     app.set('views', __dirname + '/views');
@@ -14,8 +15,19 @@ var express = require("express"),
     cloudinary.config({
         cloud_name: 'jbull238',
         api_key: '339719788594166',
-        api_secret: 'Mqqa4AFIRujSei3S7Ixb9DuRC4E'
+        api_secret: 'Mqqa4AFIRujSei3S7Ixb9DuRC4E',
 });
+
+  app.use(stormpath.init(app, {
+  apiKeyFile: '/.stormpath/apiKey.properties',
+  apiKeyId:     process.env.STORMPATH_API_KEY_ID || 'key',
+  apiKeySecret: process.env.STORMPATH_API_KEY_SECRET || 'secret',
+  secretKey:    process.env.STORMPATH_SECRET_KEY || 'key',
+  application:  process.env.STORMPATH_URL || 'url',
+  expand: {
+    customData: true,
+  }
+}));
 
 mongoose.connect('mongodb://localhost/modestoFCCUsers');
 var modestoFCCUsers = new mongoose.Schema({
@@ -104,6 +116,10 @@ app.get('/showUser/:_id/projects/new', function(req, res) {
     res.render("projects/new", {userRef: userRef,});
   }
 });
+});
+
+app.post("/showUser/:_id/projects/new", function(req, res) {
+
 });
 
 app.listen(process.env.PORT || 3000, function() {
