@@ -34,16 +34,18 @@
     <a href="#"><button class="ui button">Add a Blog Post</button></a>
   </div>
 </div>
-<div class="ui row">
+
+  <div class="ui row">
   <div id="workExamples" class="ui cards">
+    <% userRef.projects.forEach(function(project) { %>
     <div class="ui card">
     <div class="content">
       <div class="right floated meta">14h</div>
       <img class="ui avatar image" src="<%= userRef.imageRef %>"> <%= userRef.fName %>
-      <div class="ui text center">Project Title</div>
+      <div class="ui text center"><%= project.projTitle %></div>
     </div>
     <div class="image">
-      <img src="/img/examples/exampleTest.jpg">
+      <img src="<%= project.projImageRef %>">
     </div>
     <div class="content">
       <span class="right floated">
@@ -60,6 +62,7 @@
       </div>
     </div>
   </div>
+<% }); %>
 </div>
 
 </div>

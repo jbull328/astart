@@ -15,19 +15,19 @@ var express = require("express"),
     cloudinary.config({
         cloud_name: 'jbull238',
         api_key: '339719788594166',
-        api_secret: 'Mqqa4AFIRujSei3S7Ixb9DuRC4E',
+        api_secret: 'Mqqa4AFIRujSei3S7Ixb9DuRC4E'
 });
 
-  app.use(stormpath.init(app, {
-  apiKeyFile: '/.stormpath/apiKey.properties',
-  apiKeyId:     process.env.STORMPATH_API_KEY_ID || 'key',
-  apiKeySecret: process.env.STORMPATH_API_KEY_SECRET || 'secret',
-  secretKey:    process.env.STORMPATH_SECRET_KEY || 'key',
-  application:  process.env.STORMPATH_URL || 'url',
-  expand: {
-    customData: true,
-  }
-}));
+//   app.use(stormpath.init(app, {
+//   apiKeyFile: '/.stormpath/apiKey.properties',
+//   apiKeyId:     process.env.STORMPATH_API_KEY_ID || 'key',
+//   apiKeySecret: process.env.STORMPATH_API_KEY_SECRET || 'secret',
+//   secretKey:    process.env.STORMPATH_SECRET_KEY || 'key',
+//   application:  process.env.STORMPATH_URL || 'url',
+//   expand: {
+//     customData: true,
+//   }
+// }));
 
 mongoose.connect('mongodb://localhost/modestoFCCUsers');
 var modestoFCCUsers = new mongoose.Schema({
@@ -40,35 +40,36 @@ var modestoFCCUsers = new mongoose.Schema({
     projects: [
         {
             type: mongoose.Schema.Types.ObjectId,
-            ref: "userProject"
+            ref: "Project"
         }
     ]
 });
+var FccUsers = mongoose.model("FccUsers", modestoFCCUsers);
 
-var projects = new mongoose.Schema({
+var userProjects = new mongoose.Schema({
   projTitle: String,
   projDescription: String,
   projImageRef: String,
   projLink: String,
-  projLikes: [
-    {
-
-    }
-  ] ,
-  projComments: [
-    {
-
-    }
-  ]
-})
-var FccUsers = mongoose.model("FccUsers", modestoFCCUsers);
+  // projLikes: [
+  //   {
+  //
+  //   }
+  // ] ,
+  // projComments: [
+  //   {
+  //
+  //   }
+  // ]
+});
+var Project = mongoose.model("Project", userProjects);
 
 app.get("/", function(req, res) {
   res.render("landing");
 });
 
 app.get('/showUser/:id', function(req, res) {
-  FccUsers.findById(req.params.id, function(err, userRef) {
+  FccUsers.findById(req.params.id).populate('projects').exec(function(err, userRef) {
     if (err) {
       console.log(err);
     } else {
@@ -118,8 +119,30 @@ app.get('/showUser/:_id/projects/new', function(req, res) {
 });
 });
 
-app.post("/showUser/:_id/projects/new", function(req, res) {
-
+app.post("/showUser/:_id/projects", function(req, res) {
+  var projTitle = req.body.projTitle;
+  var projDescription = req.body.projDescription;
+  var projLink = req.body.projLink;
+  var projImageRef = req.body.projImageRef;
+  var newProject = {projTitle: projTitle, projDescription: projDescription, projImageRef: projImageRef, projLink: projImageRef,};
+  FccUsers.findById(req.params._id, function(err, userRef) {
+    if (err) {
+      console.log(err);
+      console.log(userRef);
+      res.redirect("/showUser/" + userRef._id);
+    } else {
+      Project.create(newProject, function(err, project){
+        if(err) {
+          console.log(err);
+        } else {
+          console.log("Success " + userRef);
+          userRef.projects.push(project);
+          userRef.save();
+          res.redirect("/showUser/" + userRef._id);
+        }
+      });
+    }
+  })
 });
 
 app.listen(process.env.PORT || 3000, function() {
