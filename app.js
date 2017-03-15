@@ -73,8 +73,15 @@ app.get('/showUser/:id', function(req, res) {
     if (err) {
       console.log(err);
     } else {
-      console.log(userRef);
-      res.render("showUser", {userRef: userRef,});
+      Project.find(function(err, projects) {
+        if (err) {
+          console.log(err);
+        } else {
+          console.log(userRef);
+          console.log(projects);
+          res.render("showUser", {userRef: userRef, projects: projects,});
+        }
+    });
     }
   });
 });
