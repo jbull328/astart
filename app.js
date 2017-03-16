@@ -90,7 +90,14 @@ app.get('/user/new', function(req, res) {
 });
 
 app.get("/showAll/", function(req, res) {
-  res.render("showAll");  
+  FccUsers.find(function(err, allUsers) {
+    if (err) {
+      console.log(err);
+    } else {
+      res.render("showAll", {allUsers: allUsers,}); 
+    }
+  });
+
 })
 
 app.post('/user/new', upload.single('avatar'), function(req, res, next) {

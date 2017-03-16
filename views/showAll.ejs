@@ -1,19 +1,21 @@
 <% include partials/head %>
 <div class="row">
-  <div class="ui middle aligned stackable grid container" id="allUsersMain">
-    <div class="ui link items">
-      <div class="item">
-        <div class="ui tiny image">
-          <img src="/img/avatars/test.png">
+  <div class="ui three column grid container" id="allUsersMain">
+      <% allUsers.forEach(function(userRef) { %>
+      <div class="column">
+      <div class="ui fluid card">
+        <div class="ui image">
+          <img src="<%= userRef.imageRef %>">
         </div>
         <div class="content">
-          <div class="header">Stevie Feliciano</div>
+          <div class="header"><%= userRef.fName %> <%= userRef.lName %></div>
           <div class="description">
-            <p>placeholder</p>
+            <p><%= userRef.description %></p>
           </div>
         </div>
       </div>
-  </div>
+      </div>
+      <% }) %>
   </div>
 </div>
 
