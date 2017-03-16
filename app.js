@@ -126,12 +126,16 @@ app.get('/showUser/:_id/projects/new', function(req, res) {
 });
 });
 
-app.post("/showUser/:_id/projects", function(req, res) {
+app.post("/showUser/:_id/projects", upload.single('projImage'), function(req, res) {
   var projTitle = req.body.projTitle;
   var projDescription = req.body.projDescription;
   var projLink = req.body.projLink;
-  var projImageRef = req.body.projImageRef;
-  var newProject = {projTitle: projTitle, projDescription: projDescription, projImageRef: projImageRef, projLink: projImageRef,};
+  var projImage = req.file.path;
+  cloudinary.uploader.upload(projImage, function(result) {
+    var projImageRef = result.url;
+
+  console.log(result);
+  var newProject = {projTitle: projTitle, projDescription: projDescription, projImageRef: projImageRef, projLink: projLink,};
   FccUsers.findById(req.params._id, function(err, userRef) {
     if (err) {
       console.log(err);
@@ -149,6 +153,7 @@ app.post("/showUser/:_id/projects", function(req, res) {
         }
       });
     }
+  });
   })
 });
 

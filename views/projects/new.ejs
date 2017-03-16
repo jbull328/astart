@@ -7,19 +7,19 @@
     <form class="ui form" action="/showUser/<%= userRef.id %>/projects" method="POST" enctype="multipart/form-data">
     <div class="field">
       <label>Project Title</label>
-      <input type="text" type="text" name="projTitle" placeholder="Title of Your Project">
+      <input type="text" name="projTitle" placeholder="Title of Your Project">
     </div>
     <div class="field">
       <label>Description</label>
-      <input type="text" type="text" name="projDescription" placeholder="Description">
+      <input type="text" name="projDescription" placeholder="Description">
     </div>
     <div class="field">
       <label>Project Image</label>
-      <input type="file" type="text" name="projImageRef" placeholder="Example of Your Project">
+      <input type="file" name="projImage" placeholder="Example of Your Project">
     </div>
     <div class="field">
       <label>Link</label>
-      <input type="text" type="text" name="projLink" placeholder="Link to your project">
+      <input type="text" name="projLink" placeholder="Link to your project">
     </div>
     <button class="ui button" type="submit">Submit</button>
     <a href="/showUser/<%= userRef.id %>" class="ui button">Cancel</a>
