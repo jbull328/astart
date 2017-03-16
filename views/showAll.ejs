@@ -4,19 +4,20 @@
       <% allUsers.forEach(function(userRef) { %>
             <div class="column">
             <a href="/showUser/<%= userRef._id %>">
-            <div class="ui fluid card">
-              <div class="ui image">
-                <img src="<%= userRef.imageRef %>">
-              </div>
-              <div class="content">
-                <div class="header"><%= userRef.fName %> <%= userRef.lName %></div>
-                <div class="description">
-                  <p><%= userRef.description %></p>
+              <div class="ui fluid card">
+                <div class="ui image">
+                  <img src="<%= userRef.imageRef %>">
+                </div>
+                <div class="content">
+                  <div class="header"><%= userRef.fName %> <%= userRef.lName %></div>
+                  <div class="description">
+                    <p><%= userRef.description %></p>
+                  </div>
                 </div>
               </div>
+            </a>
             </div>
-            </div>
-          </a>
+
 
       <% }) %>
   </div>
