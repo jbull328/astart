@@ -18,16 +18,15 @@ var express = require("express"),
         api_secret: 'Mqqa4AFIRujSei3S7Ixb9DuRC4E'
 });
 
-//   app.use(stormpath.init(app, {
-//   apiKeyFile: '/.stormpath/apiKey.properties',
-//   apiKeyId:     process.env.STORMPATH_API_KEY_ID || 'key',
-//   apiKeySecret: process.env.STORMPATH_API_KEY_SECRET || 'secret',
-//   secretKey:    process.env.STORMPATH_SECRET_KEY || 'key',
-//   application:  process.env.STORMPATH_URL || 'url',
-//   expand: {
-//     customData: true,
-//   }
-// }));
+  app.use(stormpath.init(app, {
+  apiKeyId:     process.env.STORMPATH_API_KEY_ID || 'key',
+  apiKeySecret: process.env.STORMPATH_API_KEY_SECRET || 'secret',
+  secretKey:    process.env.STORMPATH_SECRET_KEY || 'key',
+  application:  process.env.STORMPATH_URL || 'url',
+  expand: {
+    customData: true,
+  }
+}));
 
 mongoose.connect('mongodb://localhost/modestoFCCUsers');
 var modestoFCCUsers = new mongoose.Schema({
@@ -89,6 +88,10 @@ app.get('/showUser/:id', function(req, res) {
 app.get('/user/new', function(req, res) {
   res.render('userForm');
 });
+
+app.get("/showAll/", function(req, res) {
+  res.render("showAll");  
+})
 
 app.post('/user/new', upload.single('avatar'), function(req, res, next) {
   var fName = req.body.fName;
