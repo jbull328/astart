@@ -69,11 +69,11 @@ var userProjects = new mongoose.Schema({
 });
 var Project = mongoose.model("Project", userProjects);
 
-app.get("/", function(req, res) {
+app.get("/", stormpath.getUser, function(req, res) {
   res.render("landing");
 });
 
-app.get('/showUser/:id', stormpath.loginRequired, function(req, res) {
+app.get('/showUser/:id', stormpath.authenticationRequired, function(req, res) {
   FccUsers.findById(req.params.id).populate('projects').exec(function(err, userRef) {
     if (err) {
       console.log(err);
@@ -91,11 +91,11 @@ app.get('/showUser/:id', stormpath.loginRequired, function(req, res) {
   });
 });
 
-app.get('/user/new', stormpath.loginRequired, stormpath.getUser, function(req, res) {
+app.get('/user/new', stormpath.authenticationRequired, stormpath.getUser, function(req, res) {
   res.render('userForm');
 });
 
-app.get("/showAll/", function(req, res) {
+app.get("/showAll/", stormpath.authenticationRequired, stormpath.getUser, function(req, res) {
   FccUsers.find(function(err, allUsers) {
     if (err) {
       console.log(err);
@@ -106,7 +106,7 @@ app.get("/showAll/", function(req, res) {
 
 })
 
-app.post('/user/new', upload.single('avatar'), function(req, res, next) {
+app.post('/user/new',stormpath.authenticationRequired, stormpath.getUser, upload.single('avatar'), function(req, res, next) {
   var fName = req.body.fName;
   var lName = req.body.lName;
   var currentOccupation = req.body.currentOccupation;
@@ -131,7 +131,7 @@ app.post('/user/new', upload.single('avatar'), function(req, res, next) {
 });
 });
 
-app.get('/showUser/:_id/projects/new', function(req, res) {
+app.get('/showUser/:_id/projects/new', stormpath.authenticationRequired, stormpath.getUserm, function(req, res) {
   FccUsers.findById(req.params._id, function(err, userRef) {
   if (err) {
     console.log(err);
@@ -142,7 +142,7 @@ app.get('/showUser/:_id/projects/new', function(req, res) {
 });
 });
 
-app.post("/showUser/:_id/projects", upload.single('projImage'), function(req, res) {
+app.post("/showUser/:_id/projects", stormpath.authenticationRequired, stormpath.getUser, upload.single('projImage'), function(req, res) {
   var projTitle = req.body.projTitle;
   var projDescription = req.body.projDescription;
   var projLink = req.body.projLink;
