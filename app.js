@@ -25,7 +25,13 @@ var express = require("express"),
   application:  process.env.STORMPATH_URL || 'url',
   expand: {
     customData: true,
-  }
+  },
+  web: {
+   login: {
+     enabled: true,
+     nextUri: "/showAll/"
+   }
+ }
 }));
 
 mongoose.connect('mongodb://localhost/modestoFCCUsers');
@@ -67,7 +73,7 @@ app.get("/", function(req, res) {
   res.render("landing");
 });
 
-app.get('/showUser/:id', function(req, res) {
+app.get('/showUser/:id', stormpath.loginRequired, function(req, res) {
   FccUsers.findById(req.params.id).populate('projects').exec(function(err, userRef) {
     if (err) {
       console.log(err);
@@ -85,7 +91,7 @@ app.get('/showUser/:id', function(req, res) {
   });
 });
 
-app.get('/user/new', function(req, res) {
+app.get('/user/new', stormpath.loginRequired, stormpath.getUser, function(req, res) {
   res.render('userForm');
 });
 
@@ -94,7 +100,7 @@ app.get("/showAll/", function(req, res) {
     if (err) {
       console.log(err);
     } else {
-      res.render("showAll", {allUsers: allUsers,}); 
+      res.render("showAll", {allUsers: allUsers,});
     }
   });
 

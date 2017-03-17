@@ -7,11 +7,11 @@
     <form class="ui form" action="/user/new" method="POST" enctype="multipart/form-data">
     <div class="field">
       <label>First Name</label>
-      <input type="text" name="fName" placeholder="First Name">
+      <input type="text" name="fName" value="<%= user.givenName %>" placeholder="First Name">
     </div>
     <div class="field">
       <label>Last Name</label>
-      <input type="text" name="lName" placeholder="Last Name">
+      <input type="text" name="lName" value="<%= user.surname %>" placeholder="Last Name">
     </div>
     <div class="field">
       <label>Current Occupation</label>
@@ -23,7 +23,7 @@
     </div>
     <div class="field">
       <label>Email</label>
-      <input type="email" name="userEmail" placeholder="Email">
+      <input type="email" name="userEmail" value="<%=user.email %>" placeholder="Email">
     </div>
     <div class="field">
       <label>Avatar</label>
