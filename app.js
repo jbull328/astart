@@ -6,12 +6,14 @@ var express = require("express"),
     path = require('path'),
     upload = multer({ dest: 'public/img/avatars' }),
     stormpath = require('express-stormpath'),
+    dotenv = require("dotenv"),
     app = express();
 
     app.set('views', __dirname + '/views');
     app.use(bodyParser.urlencoded({extended: true}));
     app.set("view engine", "ejs");
     app.use(express.static(__dirname + '/public'));
+    dotenv.load();
     cloudinary.config({
         cloud_name: 'jbull238',
         api_key: '339719788594166',
@@ -69,8 +71,8 @@ var userProjects = new mongoose.Schema({
 });
 var Project = mongoose.model("Project", userProjects);
 
-app.get("/", stormpath.getUser, function(req, res) {
-  res.render("landing");
+app.get("/", function(req, res) {
+  res.render('landing');
 });
 
 app.get('/showUser/:id', stormpath.authenticationRequired, function(req, res) {
@@ -131,7 +133,7 @@ app.post('/user/new',stormpath.authenticationRequired, stormpath.getUser, upload
 });
 });
 
-app.get('/showUser/:_id/projects/new', stormpath.authenticationRequired, stormpath.getUserm, function(req, res) {
+app.get('/showUser/:_id/projects/new', stormpath.authenticationRequired, stormpath.getUser, function(req, res) {
   FccUsers.findById(req.params._id, function(err, userRef) {
   if (err) {
     console.log(err);
