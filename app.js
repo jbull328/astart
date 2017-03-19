@@ -97,7 +97,7 @@ app.get('/user/new', stormpath.authenticationRequired, stormpath.getUser, functi
   res.render('userForm');
 });
 
-app.get("/showAll/", stormpath.authenticationRequired, stormpath.getUser, function(req, res) {
+app.get("/showAll/", stormpath.getUser, function(req, res) {
   FccUsers.find(function(err, allUsers) {
     if (err) {
       console.log(err);
