@@ -1,0 +1,25 @@
+!DOCTYPE html>
+<html>
+  <head>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.9/semantic.min.css" rel="stylesheet"/>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.9/semantic.min.js"></script>
+    <link href="/styles/app.css" rel="stylesheet"/>
+    <meta charset="utf-8">
+    <title><%= userRef.fName %> <%= userRef.lName %> Developer</title>
+  </head>
+  <body>
+    <div class="ui fixed inverted menu">
+            <div class="ui container">
+                <div class="header item"><i class="ui icon users"></i>FreeCodeCamp of Modesto</div>
+                <a href="/" class="item">Home</a>
+                <a href="/login" class="item">Login-Sign Up</a>
+                <a href="/showAll" class="item">Developers</a>
+                <form  method="POST" action="/logout">
+                  <button class="ui button item" id="logoutButton" type="submit"><a class="item">Logout</a></button>
+                </form>
+                <div class="right menu">
+                  <a href="/user/new" id="userNameMenu" class="item"><%= user.givenName %> <%= user.surname %></a>
+                </div>
+            </div>
+    </div>
