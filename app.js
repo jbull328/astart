@@ -75,8 +75,9 @@ app.get("/", function(req, res) {
   res.render('landing');
 });
 
-app.get('/showUser/:id', stormpath.authenticationRequired, function(req, res) {
+app.get('/showUser/:id', stormpath.getUser, function(req, res) {
   FccUsers.findById(req.params.id).populate('projects').exec(function(err, userRef) {
+
     if (err) {
       console.log(err);
     } else {
@@ -84,9 +85,12 @@ app.get('/showUser/:id', stormpath.authenticationRequired, function(req, res) {
         if (err) {
           console.log(err);
         } else {
-          console.log(userRef);
-          console.log(projects);
-          res.render("showUser", {userRef: userRef, projects: projects,});
+          if (userRef._id = req.user.customData.authUserID) {
+            res.render("showUser", {userRef: userRef, projects: projects,});
+          } else {
+            console.log(req.user.customData);
+            res.render("showUserPublic", {userRef: userRef, projects: projects,});
+          }
         }
     });
     }
@@ -109,6 +113,14 @@ app.get("/showAll/", stormpath.getUser, function(req, res) {
 })
 
 app.post('/user/new',stormpath.authenticationRequired, stormpath.getUser, upload.single('avatar'), function(req, res, next) {
+  var authUserID = userRef._id;
+  req.user.customData.authUserID = authUserID;
+  req.user.customData.save(function(err) {
+  if (err) {
+    console.log(err);  // this will throw an error if something breaks when you try to save your changes
+  } else {
+    }
+  });
   var fName = req.body.fName;
   var lName = req.body.lName;
   var currentOccupation = req.body.currentOccupation;
