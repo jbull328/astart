@@ -85,7 +85,7 @@ app.get('/showUser/:id', stormpath.getUser, function(req, res) {
         if (err) {
           console.log(err);
         } else {
-          if (userRef._id = req.user.customData.authUserID) {
+          if (req.user && userRef._id == req.user.customData.authUserID) {
             res.render("showUser", {userRef: userRef, projects: projects,});
           } else {
             console.log(req.user.customData);
@@ -98,7 +98,9 @@ app.get('/showUser/:id', stormpath.getUser, function(req, res) {
 });
 
 app.get('/user/new', stormpath.authenticationRequired, stormpath.getUser, function(req, res) {
-  res.render('userForm');
+  FccUsers.findById(req.params._id, function(err, userRef) {
+    res.render('userForm', {userRef: userRef,});
+  });
 });
 
 app.get("/showAll/", stormpath.getUser, function(req, res) {
@@ -112,15 +114,8 @@ app.get("/showAll/", stormpath.getUser, function(req, res) {
 
 })
 
-app.post('/user/new',stormpath.authenticationRequired, stormpath.getUser, upload.single('avatar'), function(req, res, next) {
-  var authUserID = userRef._id;
-  req.user.customData.authUserID = authUserID;
-  req.user.customData.save(function(err) {
-  if (err) {
-    console.log(err);  // this will throw an error if something breaks when you try to save your changes
-  } else {
-    }
-  });
+app.post('/user/new', stormpath.authenticationRequired, stormpath.getUser, upload.single('avatar'), function(req, res, next) {
+
   var fName = req.body.fName;
   var lName = req.body.lName;
   var currentOccupation = req.body.currentOccupation;
@@ -130,7 +125,7 @@ app.post('/user/new',stormpath.authenticationRequired, stormpath.getUser, upload
   cloudinary.uploader.upload(avatar, function(result) {
     var imageRef = result.url;
 
-  console.log(result);
+  console.log("image" + result + "~~~~~~~~~~~~~~~");
 
   var newUser = {fName: fName, lName: lName, description: description, currentOccupation: currentOccupation, userEmail: userEmail, imageRef: imageRef,};
   FccUsers.create(newUser, function(err, newlyCreatedUser) {
@@ -139,6 +134,15 @@ app.post('/user/new',stormpath.authenticationRequired, stormpath.getUser, upload
     console.log(err);
     res.render("landing")
   } else {
+      console.log(newlyCreatedUser.id);
+      var authUserID = newlyCreatedUser.id;
+      req.user.customData.authUserID = authUserID;
+      req.user.customData.save(function(err) {
+    if (err) {
+      console.log(err);  // this will throw an error if something breaks when you try to save your changes
+    } else {
+      }
+    });
     res.redirect("/showUser/" + newlyCreatedUser._id);
   }
 });
