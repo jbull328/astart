@@ -86,9 +86,9 @@ app.get('/showUser/:id', stormpath.getUser, function(req, res) {
           console.log(err);
         } else {
           if (req.user && userRef._id == req.user.customData.authUserID) {
+
             res.render("showUser", {userRef: userRef, projects: projects,});
           } else {
-            console.log(req.user.customData);
             res.render("showUserPublic", {userRef: userRef, projects: projects,});
           }
         }
