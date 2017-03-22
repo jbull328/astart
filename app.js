@@ -31,7 +31,7 @@ var express = require("express"),
   web: {
    login: {
      enabled: true,
-     nextUri: "/showAll/"
+     nextUri: "/user/new/"
    }
  }
 }));
@@ -98,9 +98,12 @@ app.get('/showUser/:id', stormpath.getUser, function(req, res) {
 });
 
 app.get('/user/new', stormpath.authenticationRequired, stormpath.getUser, function(req, res) {
-  FccUsers.findById(req.params._id, function(err, userRef) {
-    res.render('userForm', {userRef: userRef,});
-  });
+  var userId = req.user.customData.authUserID;
+  if (req.user.customData.authUserID != null) {
+      res.redirect('/showUser/' + userId);
+  } else {
+      res.render('userForm', {userRef: userRef,});
+  }
 });
 
 app.get("/showAll/", stormpath.getUser, function(req, res) {
