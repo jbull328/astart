@@ -1,4 +1,5 @@
-<% include partials/head %>
+<% include partials/userHeader %>
+
 
 <div class="ui container" id="">
 
@@ -15,7 +16,7 @@
     </div>
     <div class="field">
       <label>Content</label>
-      <input type="text" name="blogBody" placeholder="">
+      <textarea id="blogEntry" type="text" name="blogBody" placeholder=""></textarea>
     </div>
     <button class="ui button" type="submit">Submit</button>
     <a href="/" class="ui button">Cancel</a>
@@ -23,6 +24,8 @@
 
   </div>
 </div>
-
+<script>
+var simplemde = new SimpleMDE({ element: document.getElementById("blogEntry") });
+</script>
 
 <% include partials/foot %>
