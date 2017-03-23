@@ -163,6 +163,10 @@ app.get('/showUser/:_id/projects/new', stormpath.authenticationRequired, stormpa
 });
 });
 
+app.get('/userBlog/new', stormpath.authenticationRequired, stormpath.getUser, function(req, res) {
+  res.render("userBlogForm");
+});
+
 app.post("/showUser/:_id/projects", stormpath.authenticationRequired, stormpath.getUser, upload.single('projImage'), function(req, res) {
   var projTitle = req.body.projTitle;
   var projDescription = req.body.projDescription;
