@@ -17,6 +17,9 @@
      color: #555F61;
    }
 
+.mainForm {
+  margin-top: 10%;
+}
 #mastheadStyle {
   background-image: url(../img/footer_lodyas.png);
 }
@@ -37,4 +40,12 @@
 
 #allUsersMain {
   margin: 120px 30px;
+}
+
+#blogEntry {
+  height: 450px;
+}
+
+.codeMirror {
+  height: 450px;
 }
