@@ -49,6 +49,12 @@ var modestoFCCUsers = new mongoose.Schema({
             type: mongoose.Schema.Types.ObjectId,
             ref: "Project"
         }
+    ],
+    blogs: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Blog"
+      }
     ]
 });
 var FccUsers = mongoose.model("FccUsers", modestoFCCUsers);
@@ -70,6 +76,13 @@ var userProjects = new mongoose.Schema({
   // ]
 });
 var Project = mongoose.model("Project", userProjects);
+
+var userBlogs = new mongoose.Schema({
+  blogTitle: String,
+  blogImage: String,
+  blogbody: String,
+});
+var Blog = mongoose.model("Blog", userBlogs);
 
 app.get("/", function(req, res) {
   res.render('landing');
@@ -163,8 +176,15 @@ app.get('/showUser/:_id/projects/new', stormpath.authenticationRequired, stormpa
 });
 });
 
-app.get('/userBlog/new', stormpath.authenticationRequired, stormpath.getUser, function(req, res) {
-  res.render("userBlogForm");
+app.get('showUser/:_id/userBlog/new', stormpath.authenticationRequired, stormpath.getUser, function(req, res) {
+  FccUsers.findById(req.params._id, function(err, userRef) {
+  if (err) {
+    console.log(err);
+  } else {
+    console.log(userRef);
+    res.render("userBlogForm", {userRef: userRef,});
+  }
+});
 });
 
 app.post("/showUser/:_id/projects", stormpath.authenticationRequired, stormpath.getUser, upload.single('projImage'), function(req, res) {
@@ -196,6 +216,27 @@ app.post("/showUser/:_id/projects", stormpath.authenticationRequired, stormpath.
     }
   });
   })
+});
+
+app.post("showUser/:_id/userBlog/new", stormpath.authenticationRequired, stormpath.getuser, function(req, res) {
+  FccUsers.findById(req.params._id, function(err, userRef) {
+    var blogTitle = req.body.blogTitle;
+    var blogImage = req.body.blogImage;
+    if(err) {
+      console.log(err);
+      res.redirect("/showUser/" + userRef._id);
+    } else {
+      Blog.create(newBlog, function(err, blog) {
+        if (err) {
+          console.log(err);
+        } else {
+          userRef.blogs.push(blog);
+          userRef.save();
+          res.redirect("/showUser/" + userRef._id);
+        }
+      });
+    }
+});
 });
 
 app.listen(process.env.PORT || 3000, function() {

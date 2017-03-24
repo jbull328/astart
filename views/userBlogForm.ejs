@@ -5,7 +5,7 @@
 
   <div class="ui container mainForm">
     <div class="ui huge header">Blog Entry</div>
-    <form class="ui form" action="/userBlog/new" method="POST" enctype="multipart/form-data">
+    <form class="ui form" action="/showUser/<% userRef.id %>/userBlog/new" method="POST" enctype="multipart/form-data">
     <div class="field">
       <label>Blog Title</label>
       <input type="text" name="blogTitle"  placeholder="Title">
