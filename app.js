@@ -15,10 +15,10 @@ var express = require("express"),
     app.use(express.static(__dirname + '/public'));
     dotenv.load();
     cloudinary.config({
-        cloud_name: 'jbull238',
-        api_key: '339719788594166',
-        api_secret: 'Mqqa4AFIRujSei3S7Ixb9DuRC4E'
-});
+        cloud_name: process.env.CLOUD_NAME,
+        api_key: process.env.API_KEY,
+        api_secret: process.env.API_SECRET,
+  });
 
   app.use(stormpath.init(app, {
   apiKeyId:     process.env.STORMPATH_API_KEY_ID || 'key',
@@ -176,7 +176,7 @@ app.get('/showUser/:_id/projects/new', stormpath.authenticationRequired, stormpa
 });
 });
 
-app.get('showUser/:_id/userBlog/new', stormpath.authenticationRequired, stormpath.getUser, function(req, res) {
+app.get('/showUser/:_id/userBlog/new', stormpath.authenticationRequired, stormpath.getUser, function(req, res) {
   FccUsers.findById(req.params._id, function(err, userRef) {
   if (err) {
     console.log(err);
@@ -194,34 +194,35 @@ app.post("/showUser/:_id/projects", stormpath.authenticationRequired, stormpath.
   var projImage = req.file.path;
   cloudinary.uploader.upload(projImage, function(result) {
     var projImageRef = result.url;
-
-  console.log(result);
-  var newProject = {projTitle: projTitle, projDescription: projDescription, projImageRef: projImageRef, projLink: projLink,};
-  FccUsers.findById(req.params._id, function(err, userRef) {
-    if (err) {
-      console.log(err);
-      console.log(userRef);
-      res.redirect("/showUser/" + userRef._id);
-    } else {
-      Project.create(newProject, function(err, project){
-        if(err) {
-          console.log(err);
-        } else {
-          console.log("Success " + userRef);
-          userRef.projects.push(project);
-          userRef.save();
-          res.redirect("/showUser/" + userRef._id);
-        }
-      });
-    }
-  });
-  })
+    console.log(result);
+    var newProject = {projTitle: projTitle, projDescription: projDescription, projImageRef: projImageRef, projLink: projLink,};
+    FccUsers.findById(req.params._id, function(err, userRef) {
+      if (err) {
+        console.log(err);
+        console.log(userRef);
+        res.redirect("/showUser/" + userRef._id);
+      } else {
+        Project.create(newProject, function(err, project){
+          if(err) {
+            console.log(err);
+          } else {
+            console.log("Success " + userRef);
+            userRef.projects.push(project);
+            userRef.save();
+            res.redirect("/showUser/" + userRef._id);
+          }
+        });
+      }
+    });
+});
 });
 
-app.post("showUser/:_id/userBlog/new", stormpath.authenticationRequired, stormpath.getuser, function(req, res) {
-  FccUsers.findById(req.params._id, function(err, userRef) {
+app.post("/showUser/:_id/userBlog/new", stormpath.authenticationRequired, stormpath.getUser, upload.single('blogImage'), function(req, res) {
     var blogTitle = req.body.blogTitle;
     var blogImage = req.body.blogImage;
+    var blogBody = req.body.blogBody;
+    var newBlog = {blogTitle: blogTitle, blogImage: blogImage, blogBody: blogBody,};
+    FccUsers.findById(req.params._id, function(err, userRef) {
     if(err) {
       console.log(err);
       res.redirect("/showUser/" + userRef._id);
