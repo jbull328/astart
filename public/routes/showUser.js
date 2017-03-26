@@ -2,6 +2,7 @@ var express = require("express"),
     router = express.Router(),
     bodyParser = require('body-parser'),
     mongoose = require('mongoose'),
+    Blogs = require('../models/userBlogs.js'),
     Project = require("../models/userProjects.js"),
     FccUsers = require("../models/fccUsers.js"),
     stormpath = require('express-stormpath');
