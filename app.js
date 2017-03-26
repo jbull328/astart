@@ -4,9 +4,14 @@ var express = require("express"),
     cloudinary = require("cloudinary"),
     multer = require("multer"),
     path = require('path'),
+    router = express.Router(),
     upload = multer({ dest: 'public/img/avatars' }),
+    FccUsers = require('./public/models/fccUsers.js'),
+    Project = require('./public/models/userProjects.js'),
+    Blog = require('./public/models/userBlogs.js')
     stormpath = require('express-stormpath'),
     dotenv = require("dotenv"),
+    showUserRoute = require('./public/routes/getShowUser.js'),
     app = express();
 
     app.set('views', __dirname + '/views');
@@ -14,6 +19,8 @@ var express = require("express"),
     app.set("view engine", "ejs");
     app.use(express.static(__dirname + '/public'));
     dotenv.load();
+
+    //Cloudinary API config for cloud storage of images.
     cloudinary.config({
         cloud_name: process.env.CLOUD_NAME,
         api_key: process.env.API_KEY,
@@ -37,78 +44,13 @@ var express = require("express"),
 }));
 
 mongoose.connect('mongodb://localhost/modestoFCCUsers');
-var modestoFCCUsers = new mongoose.Schema({
-    fName: String,
-    lName: String,
-    currentOccupation: String,
-    description: String,
-    userEmail: String,
-    imageRef: String,
-    projects: [
-        {
-            type: mongoose.Schema.Types.ObjectId,
-            ref: "Project"
-        }
-    ],
-    blogs: [
-      {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "Blog"
-      }
-    ]
-});
-var FccUsers = mongoose.model("FccUsers", modestoFCCUsers);
-
-var userProjects = new mongoose.Schema({
-  projTitle: String,
-  projDescription: String,
-  projImageRef: String,
-  projLink: String,
-  // projLikes: [
-  //   {
-  //
-  //   }
-  // ] ,
-  // projComments: [
-  //   {
-  //
-  //   }
-  // ]
-});
-var Project = mongoose.model("Project", userProjects);
-
-var userBlogs = new mongoose.Schema({
-  blogTitle: String,
-  blogImage: String,
-  blogbody: String,
-});
-var Blog = mongoose.model("Blog", userBlogs);
 
 app.get("/", function(req, res) {
   res.render('landing');
 });
 
-app.get('/showUser/:id', stormpath.getUser, function(req, res) {
-  FccUsers.findById(req.params.id).populate('projects').exec(function(err, userRef) {
+app.get('/showUser/:id', showUserRoute);
 
-    if (err) {
-      console.log(err);
-    } else {
-      Project.find(function(err, projects) {
-        if (err) {
-          console.log(err);
-        } else {
-          if (req.user && userRef._id == req.user.customData.authUserID) {
-
-            res.render("showUser", {userRef: userRef, projects: projects,});
-          } else {
-            res.render("showUserPublic", {userRef: userRef, projects: projects,});
-          }
-        }
-    });
-    }
-  });
-});
 
 app.get('/user/new', stormpath.authenticationRequired, stormpath.getUser, function(req, res) {
   var userId = req.user.customData.authUserID;
@@ -219,25 +161,29 @@ app.post("/showUser/:_id/projects", stormpath.authenticationRequired, stormpath.
 
 app.post("/showUser/:_id/userBlog/new", stormpath.authenticationRequired, stormpath.getUser, upload.single('blogImage'), function(req, res) {
     var blogTitle = req.body.blogTitle;
-    var blogImage = req.body.blogImage;
+    var blogImage = req.file.path;
     var blogBody = req.body.blogBody;
-    var newBlog = {blogTitle: blogTitle, blogImage: blogImage, blogBody: blogBody,};
-    FccUsers.findById(req.params._id, function(err, userRef) {
-    if(err) {
-      console.log(err);
-      res.redirect("/showUser/" + userRef._id);
-    } else {
-      Blog.create(newBlog, function(err, blog) {
-        if (err) {
+    cloudinary.uploader.upload(blogImage, function(result) {
+      var blogImageRef = result.url;
+      console.log(result);
+      var newBlog = {blogTitle: blogTitle, blogImageRef: blogImageRef, blogBody: blogBody,};
+      FccUsers.findById(req.params._id, function(err, userRef) {
+        if(err) {
           console.log(err);
-        } else {
-          userRef.blogs.push(blog);
-          userRef.save();
           res.redirect("/showUser/" + userRef._id);
+        } else {
+          Blog.create(newBlog, function(err, blog) {
+            if (err) {
+              console.log(err);
+            } else {
+              userRef.blogs.push(blog);
+              userRef.save();
+              res.redirect("/showUser/" + userRef._id);
+            }
+          });
         }
-      });
-    }
-});
+    });
+  });
 });
 
 app.listen(process.env.PORT || 3000, function() {

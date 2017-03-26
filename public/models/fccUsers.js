@@ -22,4 +22,4 @@ var modestoFCCUsers = new mongoose.Schema({
 });
 var FccUsers = mongoose.model("FccUsers", modestoFCCUsers);
 
-module.exports = mongoose.model("FCCUsers", modestoFCCUsers);
+module.exports = mongoose.model("FccUsers", modestoFCCUsers);
