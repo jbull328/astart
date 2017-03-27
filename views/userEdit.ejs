@@ -4,30 +4,30 @@
 
   <div class="ui container mainForm">
     <div class="ui huge header">Edit your profile</div>
-    <form class="ui form" action="/user/new" method="POST" enctype="multipart/form-data">
+    <form class="ui form" action="/userEdit/<%= userRef.id %>? method=PUT " method="POST" enctype="multipart/form-data">
     <div class="field">
       <label>First Name</label>
-      <input type="text" name="fName" value="<%= user.givenName %>" placeholder="First Name">
+      <input type="text" name="user[fName]" value="<%= user.givenName %>" placeholder="First Name">
     </div>
     <div class="field">
       <label>Last Name</label>
-      <input type="text" name="lName" value="<%= user.surname %>" placeholder="Last Name">
+      <input type="text" name="user[lName]" value="<%= user.surname %>" placeholder="Last Name">
     </div>
     <div class="field">
       <label>Current Occupation</label>
-      <input type="text" name="currentOccupation" placeholder="Current Occupation">
+      <input type="text" name="user[currentOccupation]" placeholder="Current Occupation">
     </div>
     <div class="field">
       <label>Description</label>
-      <input type="text" name="description" placeholder="Description">
+      <input type="text" name="user[description]" placeholder="Description">
     </div>
     <div class="field">
       <label>Email</label>
-      <input type="email" name="userEmail" value="<%=user.email %>" placeholder="Email">
+      <input type="email" name="user[userEmail]" value="<%=user.email %>" placeholder="Email">
     </div>
     <div class="field">
       <label>Avatar</label>
-      <input type="file" name="avatar" placeholder="Image of You">
+      <input type="file" name="user[avatar]" placeholder="Image of You">
     </div>
     <button class="ui button" type="submit">Submit</button>
     <a href="/" class="ui button">Cancel</a>

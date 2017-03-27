@@ -9,8 +9,8 @@ var express = require("express"),
     path = require('path'),
     upload = multer({ dest: 'public/img/avatars' }),
     stormpath = require('express-stormpath');
-    // methodOverride = require("method-override"),
-    // expressSanitizer = require("express-sanitizer");
+    methodOverride = require("method-override"),
+    expressSanitizer = require("express-sanitizer");
 
     router.use(function(req, res, next) {
       next()

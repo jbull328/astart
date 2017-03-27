@@ -11,6 +11,8 @@ var express = require("express"),
     Blog = require('./public/models/userBlogs.js')
     stormpath = require('express-stormpath'),
     dotenv = require("dotenv"),
+    methodOverride = require("method-override"),
+    expressSanitizer = require("express-sanitizer"),
     showUser = require('./public/routes/showUser.js'),
     showUserNew = require('./public/routes/showUserForm.js'),
     showAll = require('./public/routes/showAll.js'),
@@ -19,6 +21,7 @@ var express = require("express"),
     createUser = require('./public/routes/createUser.js'),
     createProject = require('./public/routes/createProject.js'),
     createBlog = require('./public/routes/createBlog.js'),
+    userEdit = require('./public/routes/userEdit.js'),
     app = express();
 
     app.set('views', __dirname + '/views');
@@ -29,25 +32,25 @@ var express = require("express"),
 
     //Cloudinary API config for cloud storage of images.
     cloudinary.config({
-        cloud_name: process.env.CLOUD_NAME,
-        api_key: process.env.API_KEY,
-        api_secret: process.env.API_SECRET,
+      cloud_name: process.env.CLOUD_NAME,
+      api_key: process.env.API_KEY,
+      api_secret: process.env.API_SECRET,
   });
 
   app.use(stormpath.init(app, {
-  apiKeyId:     process.env.STORMPATH_API_KEY_ID || 'key',
-  apiKeySecret: process.env.STORMPATH_API_KEY_SECRET || 'secret',
-  secretKey:    process.env.STORMPATH_SECRET_KEY || 'key',
-  application:  process.env.STORMPATH_URL || 'url',
-  expand: {
-    customData: true,
-  },
-  web: {
-   login: {
-     enabled: true,
-     nextUri: "/user/new/"
+    apiKeyId:     process.env.STORMPATH_API_KEY_ID || 'key',
+    apiKeySecret: process.env.STORMPATH_API_KEY_SECRET || 'secret',
+    secretKey:    process.env.STORMPATH_SECRET_KEY || 'key',
+    application:  process.env.STORMPATH_URL || 'url',
+    expand: {
+      customData: true,
+    },
+    web: {
+     login: {
+       enabled: true,
+       nextUri: "/user/new/"
+     }
    }
- }
 }));
 
 mongoose.connect('mongodb://localhost/modestoFCCUsers');
@@ -61,10 +64,13 @@ app.get('/user/new', showUserNew);
 app.get('/showAll/', showAll);
 app.get('/showUser/:_id/projects/new', showProjectForm);
 app.get('/showUser/:_id/userBlog/new', showBlogForm);
+app.get('/userEdit/:_id', userEdit);
 
 app.post('/user/new', createUser);
 app.post("/showUser/:_id/projects", createProject);
 app.post("/showUser/:_id/userBlog/new", createBlog);
+
+app.put('/userEdit/:_id', userEdit);
 
 
 app.listen(process.env.PORT || 3000, function() {

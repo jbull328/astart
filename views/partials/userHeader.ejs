@@ -20,8 +20,16 @@
                 <form  method="POST" action="/logout">
                   <button class="ui button item" id="logoutButton" type="submit"><a class="item">Logout</a></button>
                 </form>
-                <div class="right menu">
-                  <a href="/user/new" id="userNameMenu" class="item"><%= user.givenName %> <%= user.surname %></a>
+                <div class="right menu" id="userNameMenu">
+                  <div class="ui inverted selection dropdown">
+                    <input type="hidden" name="<%= user.givenName %> <%= user.surname %>">
+                    <i class="dropdown icon"></i>
+                    <div class="default text"><%= user.givenName %> <%= user.surname %></div>
+                    <div class="menu">
+                      <a href="/userEdit/<%= userRef._id %>"><div class="item" data-value="1">Edit</div></a>
+                      <div class="item" data-value="0">Resources</div>
+                    </div>
+                  </div>
                 </div>
             </div>
     </div>
