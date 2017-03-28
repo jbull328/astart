@@ -22,6 +22,7 @@ var express = require("express"),
     createProject = require('./public/routes/createProject.js'),
     createBlog = require('./public/routes/createBlog.js'),
     userEdit = require('./public/routes/userEdit.js'),
+    showUserEdit = require('./public/routes/showUserEdit.js'),
     app = express();
 
     app.set('views', __dirname + '/views');
@@ -29,7 +30,7 @@ var express = require("express"),
     app.set("view engine", "ejs");
     app.use(express.static(__dirname + '/public'));
     dotenv.load();
-
+    app.use(methodOverride('_method'));
     //Cloudinary API config for cloud storage of images.
     cloudinary.config({
       cloud_name: process.env.CLOUD_NAME,
@@ -64,7 +65,7 @@ app.get('/user/new', showUserNew);
 app.get('/showAll/', showAll);
 app.get('/showUser/:_id/projects/new', showProjectForm);
 app.get('/showUser/:_id/userBlog/new', showBlogForm);
-app.get('/userEdit/:_id', userEdit);
+app.get('/userEdit/:_id', showUserEdit);
 
 app.post('/user/new', createUser);
 app.post("/showUser/:_id/projects", createProject);

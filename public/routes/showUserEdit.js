@@ -16,19 +16,15 @@ var express = require("express"),
       next()
     });
 
-    router.put("/userEdit/:_id",  stormpath.authenticationRequired, function(req, res) {
-      // req.body.customer.body = req.sanitize(req.customer.customer.body);
-
-      FccUsers.findByIdAndUpdate(req.params.id, req.body.user, function(err, userRef) {
-        var id = req.params._id;
+    router.get('/userEdit/:_id', stormpath.authenticationRequired, function(req, res) {
+      FccUsers.findById(req.params._id, function(err, userRef) {
         if (err) {
           console.log(err);
-          res.redirect("/showUser/" + id);
-        } else {
-          res.redirect("/showUser/" + id);
+        }  else {
+          res.render('userEdit.ejs', {userRef: userRef,});
         }
       });
     });
 
-
+  
 module.exports = router;
