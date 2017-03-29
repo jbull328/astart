@@ -30,7 +30,7 @@ var express = require("express"),
     app.set("view engine", "ejs");
     app.use(express.static(__dirname + '/public'));
     dotenv.load();
-    app.use(methodOverride('_method'));
+
     //Cloudinary API config for cloud storage of images.
     cloudinary.config({
       cloud_name: process.env.CLOUD_NAME,
@@ -54,6 +54,7 @@ var express = require("express"),
    }
 }));
 
+app.use(methodOverride('_method'));
 mongoose.connect('mongodb://localhost/modestoFCCUsers');
 
 app.get("/", function(req, res) {

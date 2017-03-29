@@ -5,8 +5,8 @@ var express = require("express"),
     Project = require("../models/userProjects.js"),
     FccUsers = require("../models/fccUsers.js"),
     stormpath = require('express-stormpath');
-    // methodOverride = require("method-override"),
-    // expressSanitizer = require("express-sanitizer");
+    methodOverride = require("method-override"),
+    expressSanitizer = require("express-sanitizer");
 
 
     //This router diplsays the newUser form. Logic is built in,

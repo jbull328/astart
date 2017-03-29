@@ -19,12 +19,13 @@ var express = require("express"),
     router.put("/userEdit/:_id",  stormpath.authenticationRequired, function(req, res) {
       // req.body.customer.body = req.sanitize(req.customer.customer.body);
 
-      FccUsers.findByIdAndUpdate(req.params.id, req.body.user, function(err, userRef) {
+      FccUsers.findByIdAndUpdate(req.params._id, req.body.userRef, function(err, userRef) {
         var id = req.params._id;
         if (err) {
           console.log(err);
           res.redirect("/showUser/" + id);
         } else {
+          console.log(userRef);
           res.redirect("/showUser/" + id);
         }
       });
