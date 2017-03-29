@@ -46,6 +46,14 @@
   height: 450px;
 }
 
+#userNameMenu {
+  height: 70px;
+  background-color: inherit;
+}
 .codeMirror {
   height: 450px;
+}
+
+.dropdownText {
+  color: black;
 }

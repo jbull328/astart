@@ -18,16 +18,15 @@
                 <a href="/login" class="item">Login-Sign Up</a>
                 <a href="/showAll" class="item">Developers</a>
                 <form  method="POST" action="/logout">
-                  <button class="ui button item" id="logoutButton" type="submit"><a class="item">Logout</a></button>
+                  <button class="ui button item" id="logoutButton" class="item" type="submit"><a class="item">Logout</a></button>
                 </form>
                 <div class="right menu" id="userNameMenu">
-                  <div class="ui inverted selection dropdown">
-                    <input type="hidden" name="<%= user.givenName %> <%= user.surname %>">
+                  <div class="ui item dropdown">
                     <i class="dropdown icon"></i>
-                    <div class="default text"><%= user.givenName %> <%= user.surname %></div>
+                    <div class="ui default text"><%= user.givenName %> <%= user.surname %></div>
                     <div class="menu">
-                      <a href="/userEdit/<%= userRef._id %>"><div class="item" data-value="1">Edit</div></a>
-                      <div class="item" data-value="0">Resources</div>
+                      <a href="/userEdit/<%= userRef._id %>" ><div class="item dropdownText" data-value="1">Edit</div></a>
+                      <div class="item dropdownText" data-value="0">Resources</div>
                     </div>
                   </div>
                 </div>
