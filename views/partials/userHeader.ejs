@@ -8,7 +8,7 @@
     <script src="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.js"></script>
     <link href="/styles/app.css" rel="stylesheet"/>
     <meta charset="utf-8">
-    <title><%= user.givenName %> <%= user.surname %> Developer</title>
+    <title><%= userRef.fName %> <%= userRef.lName %> Developer</title>
   </head>
   <body>
     <div class="ui fixed inverted menu">
@@ -17,16 +17,16 @@
                 <a href="/" class="item">Home</a>
                 <a href="/login" class="item">Login-Sign Up</a>
                 <a href="/showAll" class="item">Developers</a>
-                <form  method="POST" action="/logout">
-                  <button class="ui button item" id="logoutButton" class="item" type="submit"><a class="item">Logout</a></button>
+                <form  id="logoutMenu" method="POST" action="/logout">
+                  <button class="ui button item" id="logoutBtn"  class="item" type="submit"><a class="item">Logout</a></button>
                 </form>
-                <div class="right menu" id="userNameMenu">
-                  <div class="ui item dropdown">
+                <div class="item right menu" id="userNameMenu">
+                  <div class="ui  selection dropdown userMenuStyles">
                     <i class="dropdown icon"></i>
-                    <div class="ui default text"><%= user.givenName %> <%= user.surname %></div>
-                    <div class="menu">
-                      <a href="/userEdit/<%= userRef._id %>" ><div class="item dropdownText" data-value="1">Edit</div></a>
-                      <div class="item dropdownText" data-value="0">Resources</div>
+                    <div class="ui default text"><%= userRef.fName %> <%= userRef.lName %></div>
+                    <div class="menu userMenuStyles">
+                      <a href="/userEdit/<%= userRef._id %>" class="item dropdownText userMenuStyles" data-value="1">Edit</a>
+                      <a class="item dropdownText userMenuStyles" data-value="0">Resources</a>
                     </div>
                   </div>
                 </div>

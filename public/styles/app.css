@@ -50,10 +50,24 @@
   height: 70px;
   background-color: inherit;
 }
+
+#logoutBtn {
+  padding: 0;
+  height: 100%;
+}
+
+#logoutMenu {
+  height: 70px;
+  margin-bottom: 0;
+}
+
 .codeMirror {
   height: 450px;
 }
-
+.userMenuStyles {
+  background: black;
+  color: white;
+}
 .dropdownText {
   color: black;
 }
