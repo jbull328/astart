@@ -74,3 +74,8 @@
 .dropdownText {
   color: black;
 }
+
+.avatarmgI {
+  max-width: 350px;
+  max-height: 180px;
+}

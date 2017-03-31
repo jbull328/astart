@@ -23,13 +23,13 @@
     </div>
 
 <div class="row">
-  <div class="ui three column grid container" id="allUsersMain">
+  <div class="ui three column stacking grid container" id="allUsersMain">
       <% allUsers.forEach(function(userRef) { %>
             <div class="column">
             <a href="/showUser/<%= userRef._id %>">
               <div class="ui fluid card">
                 <div class="ui image">
-                  <img src="<%= userRef.imageRef %>">
+                  <img class="avatarImg" src="<%= userRef.imageRef %>" width="350" height="200">
                 </div>
                 <div class="content">
                   <div class="header"><%= userRef.fName %> <%= userRef.lName %></div>
