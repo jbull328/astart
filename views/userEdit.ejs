@@ -7,11 +7,11 @@
     <form class="ui form" action="/userEdit/<%=userRef.id%>?_method=PUT " method="POST">
     <div class="field">
       <label>First Name</label>
-      <input type="text" name="userRef[fName]" value="<%= userRef.givenName %>" placeholder="First Name">
+      <input type="text" name="userRef[fName]" value="<%= userRef.fName %>" placeholder="First Name">
     </div>
     <div class="field">
       <label>Last Name</label>
-      <input type="text" name="userRef[lName]" value="<%= userRef.surname %>" placeholder="Last Name">
+      <input type="text" name="userRef[lName]" value="<%= userRef.lName %>" placeholder="Last Name">
     </div>
     <div class="field">
       <label>Current Occupation</label>
@@ -28,7 +28,10 @@
     <button class="ui button" type="submit">Submit</button>
     <a href="/" class="ui button">Cancel</a>
    </form>
+   <form id="deleteButton" action="/userDelete/<%=userRef.id%>?_method=DELETE" method="POST">
+     <button class="ui button">Delete<i class="icon trash"></i></button>
 
+   </form>
   </div>
 </div>
 

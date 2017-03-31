@@ -22,6 +22,7 @@ var express = require("express"),
     createProject = require('./public/routes/createProject.js'),
     createBlog = require('./public/routes/createBlog.js'),
     userEdit = require('./public/routes/userEdit.js'),
+    userDelete = require('./public/routes/userDelete.js'),
     showUserEdit = require('./public/routes/showUserEdit.js'),
     app = express();
 
@@ -73,6 +74,7 @@ app.post("/showUser/:_id/projects", createProject);
 app.post("/showUser/:_id/userBlog/new", createBlog);
 
 app.put('/userEdit/:_id', userEdit);
+app.delete('/userDelete/:_id', userDelete);
 
 
 app.listen(process.env.PORT || 3000, function() {
