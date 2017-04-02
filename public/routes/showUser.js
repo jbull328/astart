@@ -2,7 +2,7 @@ var express = require("express"),
     router = express.Router(),
     bodyParser = require('body-parser'),
     mongoose = require('mongoose'),
-    Blogs = require('../models/userBlogs.js'),
+    Blog = require('../models/userBlogs.js'),
     Project = require("../models/userProjects.js"),
     FccUsers = require("../models/fccUsers.js"),
     stormpath = require('express-stormpath');
@@ -14,7 +14,7 @@ var express = require("express"),
     });
 
     router.get('/showUser/:id', stormpath.getUser, function(req, res) {
-      FccUsers.findById(req.params.id).populate('projects').exec(function(err, userRef) {
+      FccUsers.findById(req.params.id).populate('projects blogs').exec(function(err, userRef) {
 
         if (err) {
           console.log(err);
@@ -23,13 +23,15 @@ var express = require("express"),
             if (err) {
               console.log(err);
             } else {
+              Blog.find(function(err, blogs) {
               if (req.user && userRef._id == req.user.customData.authUserID) {
 
-                res.render("showUser", {userRef: userRef, projects: projects,});
+                res.render("showUser", {userRef: userRef, projects: projects, blogs: blogs,});
               } else {
-                res.render("showUserPublic", {userRef: userRef, projects: projects,});
+                res.render("showUserPublic", {userRef: userRef, projects: projects, blogs: blogs,});
               }
-            }
+            });
+          }
         });
         }
       });

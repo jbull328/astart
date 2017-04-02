@@ -64,8 +64,27 @@
   </div>
 <% }); %>
 </div>
-
 </div>
+<div class="ui row">
+  <div id='blogItems' class="ui items">
+    <% userRef.blogs.forEach(function(blog) { %>
+      <div class="item">
+        <div class="ui tiny image">
+          <img src="<%= blog.blogImageRef %>">
+        </div>
+        <div class="content">
+          <div class="header"><%= blog.blogTitle %></div>
+          <div class="description">
+            <p><%= blog.blogBody %></p>
+            </div>
+        </div>
+    <% }); %>
+  </div>
+</div>
+
+
+
+
 
 
 <% include partials/foot %>

@@ -23,6 +23,7 @@ var express = require("express"),
     createBlog = require('./public/routes/createBlog.js'),
     userEdit = require('./public/routes/userEdit.js'),
     userDelete = require('./public/routes/userDelete.js'),
+    showBlog = require('./public/routes/showBlog.js'),
     showUserEdit = require('./public/routes/showUserEdit.js'),
     app = express();
 
@@ -69,6 +70,7 @@ app.get('/showAll/', showAll);
 app.get('/showUser/:_id/projects/new', showProjectForm);
 app.get('/showUser/:_id/userBlog/new', showBlogForm);
 app.get('/userEdit/:_id', showUserEdit);
+app.get('/showUser/:_id/userBlog', showBlog);
 
 app.post('/user/new', createUser);
 app.post("/showUser/:_id/projects", createProject);
