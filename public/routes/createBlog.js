@@ -17,7 +17,7 @@ var express = require("express"),
       next()
     });
 
-    router.post("/showUser/:_id/userBlog/new", stormpath.authenticationRequired, stormpath.getUser, upload.single('blogImage'), function(req, res) {
+    router.post("/showUser/:_id/userBlog/new", upload.single('blogImage'), function(req, res) {
         var blogTitle = req.body.blogTitle;
         var blogImage = req.file.path;
         var blogBody = req.body.blogBody;
