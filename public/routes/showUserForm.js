@@ -15,7 +15,7 @@ var express = require("express"),
       next()
     });
 
-    router.get('/user/new', stormpath.authenticationRequired, stormpath.getUser, function(req, res) {
+    router.get('/user/new', function(req, res) {
       var userId = req.user.customData.authUserID;
       if (req.user.customData.authUserID != null) {
           res.redirect('/showUser/' + userId);
