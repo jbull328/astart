@@ -16,7 +16,7 @@ var express = require("express"),
       next()
     });
 
-    router.put("/userEdit/:_id",  stormpath.authenticationRequired, function(req, res) {
+    router.put("/userEdit/:_id", function(req, res) {
       // req.body.customer.body = req.sanitize(req.customer.customer.body);
 
       FccUsers.findByIdAndUpdate(req.params._id, req.body.userRef, function(err, userRef) {
