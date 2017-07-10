@@ -12,7 +12,7 @@ var express = require("express"),
       next()
     });
 
-    router.get("/showAll/", stormpath.getUser, function(req, res) {
+    router.get("/showAll/", function(req, res) {
       FccUsers.find(function(err, allUsers) {
         if (err) {
           console.log(err);
