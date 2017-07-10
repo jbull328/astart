@@ -16,7 +16,7 @@ var express = require("express"),
       next()
     });
 
-    router.post("/showUser/:_id/projects", stormpath.authenticationRequired, stormpath.getUser, upload.single('projImage'), function(req, res) {
+    router.post("/showUser/:_id/projects", upload.single('projImage'), function(req, res) {
       var projTitle = req.body.projTitle;
       var projDescription = req.body.projDescription;
       var projLink = req.body.projLink;
