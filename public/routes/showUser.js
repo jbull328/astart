@@ -13,7 +13,7 @@ var express = require("express"),
       next()
     });
 
-    router.get('/showUser/:id', stormpath.getUser, function(req, res) {
+    router.get('/showUser/:id', function(req, res) {
       FccUsers.findById(req.params.id).populate('projects blogs').exec(function(err, userRef) {
 
         if (err) {
