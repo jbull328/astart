@@ -16,7 +16,7 @@ var express = require("express"),
       next()
     });
 
-    router.post('/user/new', stormpath.authenticationRequired, stormpath.getUser, upload.single('avatar'), function(req, res, next) {
+    router.post('/user/new', upload.single('avatar'), function(req, res, next) {
 
       var fName = req.body.fName;
       var lName = req.body.lName;
