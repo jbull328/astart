@@ -17,7 +17,7 @@ var express = require("express"),
     });
 
 
-    router.delete("/userDelete/:_id", stormpath.authenticationRequired, function(req, res) {
+    router.delete("/userDelete/:_id", function(req, res) {
       FccUsers.findByIdAndRemove(req.params._id, function(err, userRef) {
         if (err) {
           console.log(err);
