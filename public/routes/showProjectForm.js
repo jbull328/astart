@@ -12,7 +12,7 @@ var express = require("express"),
       next()
     });
 
-    router.get('/showUser/:_id/projects/new', stormpath.authenticationRequired, stormpath.getUser, function(req, res) {
+    router.get('/showUser/:_id/projects/new', function(req, res) {
       FccUsers.findById(req.params._id, function(err, userRef) {
       if (err) {
         console.log(err);
