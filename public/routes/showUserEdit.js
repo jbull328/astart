@@ -18,7 +18,7 @@ var express = require("express"),
       next()
     });
 
-    router.get('/userEdit/:_id', stormpath.authenticationRequired, function(req, res) {
+    router.get('/userEdit/:_id', function(req, res) {
       FccUsers.findById(req.params._id, function(err, userRef) {
         if (err) {
           console.log(err);
