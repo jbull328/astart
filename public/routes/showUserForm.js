@@ -4,7 +4,6 @@ var express = require("express"),
     mongoose = require('mongoose'),
     Project = require("../models/userProjects.js"),
     FccUsers = require("../models/fccUsers.js"),
-    stormpath = require('express-stormpath');
     methodOverride = require("method-override"),
     expressSanitizer = require("express-sanitizer");
 

@@ -8,11 +8,10 @@ var express = require("express"),
     multer = require("multer"),
     path = require('path'),
     upload = multer({ dest: 'public/img/avatars' }),
-    stormpath = require('express-stormpath');
     methodOverride = require("method-override"),
     expressSanitizer = require("express-sanitizer");
 
-    
+
 
     router.use(function(req, res, next) {
       next()

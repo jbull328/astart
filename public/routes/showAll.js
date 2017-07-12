@@ -3,8 +3,7 @@ var express = require("express"),
     bodyParser = require('body-parser'),
     mongoose = require('mongoose'),
     Project = require("../models/userProjects.js"),
-    FccUsers = require("../models/fccUsers.js"),
-    stormpath = require('express-stormpath');
+    FccUsers = require("../models/fccUsers.js");
     // methodOverride = require("method-override"),
     // expressSanitizer = require("express-sanitizer");
 

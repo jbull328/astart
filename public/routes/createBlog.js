@@ -8,8 +8,7 @@ var express = require("express"),
     cloudinary = require("cloudinary"),
     multer = require("multer"),
     path = require('path'),
-    upload = multer({ dest: 'public/img/avatars' }),
-    stormpath = require('express-stormpath');
+    upload = multer({ dest: 'public/img/avatars' });
     // methodOverride = require("method-override"),
     // expressSanitizer = require("express-sanitizer");
 

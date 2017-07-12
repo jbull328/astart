@@ -9,7 +9,6 @@ var express = require("express"),
     FccUsers = require('./public/models/fccUsers.js'),
     Project = require('./public/models/userProjects.js'),
     Blog = require('./public/models/userBlogs.js')
-    stormpath = require('express-stormpath'),
     dotenv = require("dotenv"),
     methodOverride = require("method-override"),
     expressSanitizer = require("express-sanitizer"),
@@ -41,21 +40,21 @@ var express = require("express"),
       api_secret: process.env.API_SECRET,
   });
 
-  app.use(stormpath.init(app, {
-    apiKeyId:     process.env.STORMPATH_API_KEY_ID || 'key',
-    apiKeySecret: process.env.STORMPATH_API_KEY_SECRET || 'secret',
-    secretKey:    process.env.STORMPATH_SECRET_KEY || 'key',
-    application:  process.env.STORMPATH_URL || 'url',
-    expand: {
-      customData: true,
-    },
-    web: {
-     login: {
-       enabled: true,
-       nextUri: "/user/new/"
-     }
-   }
-}));
+//   app.use(stormpath.init(app, {
+//     apiKeyId:     process.env.STORMPATH_API_KEY_ID || 'key',
+//     apiKeySecret: process.env.STORMPATH_API_KEY_SECRET || 'secret',
+//     secretKey:    process.env.STORMPATH_SECRET_KEY || 'key',
+//     application:  process.env.STORMPATH_URL || 'url',
+//     expand: {
+//       customData: true,
+//     },
+//     web: {
+//      login: {
+//        enabled: true,
+//        nextUri: "/user/new/"
+//      }
+//    }
+// }));
 
 app.use(methodOverride('_method'));
 mongoose.connect('mongodb://localhost/modestoFCCUsers');
