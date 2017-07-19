@@ -29,9 +29,9 @@ var express = require("express"),
     morgan = require('morgan'),
     cookieParser = require('cookie-parser'),
     session = require('express-session'),
+    userAuth = require('./public/routes/login.js'),
     app = express();
 
-    var config = require('/config/database.');
 
     app.set('views', __dirname + '/views');
     app.use(bodyParser.urlencoded({extended: true}));
@@ -48,14 +48,30 @@ var express = require("express"),
   });
 
 
+//==================================================
+//passport setup
+//==================================================
+// set up our express application
+app.use(morgan('dev')); // log every request to the console
+app.use(cookieParser()); // read cookies (needed for auth)
+
+// required for passport
+app.use(session({ secret: 'ilovescotchscotchyscotchscotch' })); // session secret
+app.use(passport.initialize());
+app.use(passport.session()); // persistent login sessions
+app.use(flash()); // use connect-flash for flash messages stored in session
+
 
 app.use(methodOverride('_method'));
 mongoose.connect('mongodb://localhost/modestoFCCUsers');
 
 app.get("/", function(req, res) {
-  res.render('landing');
+  res.status(200);
 });
+//auth routes
+app.get('/login', userAuth);
 
+//
 app.get('/showUser/:id', showUser);
 app.get('/user/new', showUserNew);
 app.get('/showAll/', showAll);

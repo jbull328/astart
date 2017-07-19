@@ -3,7 +3,8 @@ var express = require("express"),
     bodyParser = require('body-parser'),
     mongoose = require('mongoose'),
     Project = require("../models/userProjects.js"),
-    FccUsers = require("../models/fccUsers.js")
+    FccUsers = require("../models/fccUsers.js"),
+    flash = require('connect-flash'),
     passport = require("passport");
 
     router.use(function(req, res, next) {

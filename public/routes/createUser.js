@@ -37,6 +37,7 @@ var express = require("express"),
         } else {
             console.log(newlyCreatedUser.id);
             var authUserID = newlyCreatedUser.id;
+            // TODO: user customData depreciated needs to be redone.
             req.user.customData.authUserID = authUserID;
             req.user.customData.save(function(err) {
           if (err) {
