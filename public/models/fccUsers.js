@@ -1,6 +1,7 @@
 var mongoose = require('mongoose');
 
 var modestoFCCUsers = new mongoose.Schema({
+    username: String,
     fName: String,
     lName: String,
     currentOccupation: String,
