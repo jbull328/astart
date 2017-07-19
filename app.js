@@ -24,7 +24,14 @@ var express = require("express"),
     userDelete = require('./public/routes/userDelete.js'),
     showBlog = require('./public/routes/showBlog.js'),
     showUserEdit = require('./public/routes/showUserEdit.js'),
+    passport = require('passport'),
+    flash = require('connect-flash'),
+    morgan = require('morgan'),
+    cookieParser = require('cookie-parser'),
+    session = require('express-session'),
     app = express();
+
+    var config = require('/config/database.');
 
     app.set('views', __dirname + '/views');
     app.use(bodyParser.urlencoded({extended: true}));
@@ -40,21 +47,7 @@ var express = require("express"),
       api_secret: process.env.API_SECRET,
   });
 
-//   app.use(stormpath.init(app, {
-//     apiKeyId:     process.env.STORMPATH_API_KEY_ID || 'key',
-//     apiKeySecret: process.env.STORMPATH_API_KEY_SECRET || 'secret',
-//     secretKey:    process.env.STORMPATH_SECRET_KEY || 'key',
-//     application:  process.env.STORMPATH_URL || 'url',
-//     expand: {
-//       customData: true,
-//     },
-//     web: {
-//      login: {
-//        enabled: true,
-//        nextUri: "/user/new/"
-//      }
-//    }
-// }));
+
 
 app.use(methodOverride('_method'));
 mongoose.connect('mongodb://localhost/modestoFCCUsers');

@@ -1,5 +1,5 @@
 {
-  "name": "astar",
+  "name": "astart",
   "version": "1.0.0",
   "description": "Profiles for fellow desvelopers",
   "main": "app.js",
@@ -9,27 +9,24 @@
   "author": "John Bull",
   "license": "ISC",
   "dependencies": {
-    "body-parser": "^1.16.1",
+    "body-parser": "~1.0.0",
     "cloudinary": "^1.7.1",
     "dotenv": "^4.0.0",
     "ejs": "^2.5.6",
     "express": "^4.14.1",
     "express-sanitizer": "^1.0.2",
-    "method-override": "^2.3.8",
+    "method-override": "~1.0.0",
     "mongoose": "^4.8.4",
     "multer": "^1.3.0",
-    "passport" : "~0.1.17",
-    "passport-local" : "~0.1.6",
-    "passport-facebook" : "~1.0.2",
-    "passport-twitter" : "~1.0.2",
-    "passport-google-oauth" : "~0.1.5",
-    "connect-flash" : "~0.1.1",
-    "bcrypt-nodejs" : "latest",
-
+    "passport": "~0.1.17",
+    "passport-local": "~0.1.6",
+    "passport-facebook": "~1.0.2",
+    "passport-twitter": "~1.0.2",
+    "passport-google-oauth": "~0.1.5",
+    "connect-flash": "~0.1.1",
+    "bcrypt-nodejs": "latest",
     "morgan": "~1.0.0",
-    "body-parser": "~1.0.0",
     "cookie-parser": "~1.0.0",
-    "method-override": "~1.0.0",
-    "express-session": "~1.0.0"     
+    "express-session": "~1.0.0"
   }
 }
