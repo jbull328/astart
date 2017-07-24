@@ -12,7 +12,7 @@ var express = require("express"),
     });
 
     router.get("/login/", function(req, res) {
-          res.render("login.ejs", { message: req.flash('loginMessage')});
+          res.status(200, { message: req.flash('loginMessage')});
 
     });
 
