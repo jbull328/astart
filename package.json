@@ -9,6 +9,7 @@
   "author": "John Bull",
   "license": "ISC",
   "dependencies": {
+    "auth0-js": "^8.8.0",
     "body-parser": "^1.16.1",
     "cloudinary": "^1.7.1",
     "dotenv": "^4.0.0",
