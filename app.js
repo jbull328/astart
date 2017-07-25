@@ -24,6 +24,7 @@ var express = require("express"),
     userDelete = require('./public/routes/userDelete.js'),
     showBlog = require('./public/routes/showBlog.js'),
     showUserEdit = require('./public/routes/showUserEdit.js'),
+    login = require('./public/routes/login.js'),
     app = express();
 
     app.set('views', __dirname + '/views');
@@ -40,21 +41,36 @@ var express = require("express"),
       api_secret: process.env.API_SECRET,
   });
 
-//   app.use(stormpath.init(app, {
-//     apiKeyId:     process.env.STORMPATH_API_KEY_ID || 'key',
-//     apiKeySecret: process.env.STORMPATH_API_KEY_SECRET || 'secret',
-//     secretKey:    process.env.STORMPATH_SECRET_KEY || 'key',
-//     application:  process.env.STORMPATH_URL || 'url',
-//     expand: {
-//       customData: true,
-//     },
-//     web: {
-//      login: {
-//        enabled: true,
-//        nextUri: "/user/new/"
-//      }
-//    }
-// }));
+  const passport = require('passport');
+  const Auth0Strategy = require('passport-auth0');
+
+  // Configure Passport to use Auth0
+  const strategy = new Auth0Strategy(
+    {
+      domain: process.env.AUTH0_DOMAIN,
+      clientID: process.env.AUTH0_CLIENT_ID,
+      clientSecret: process.env.AUTH0_CLIENT_SECRET,
+      callbackURL: process.env.AUTH0_CALLBACK
+    },
+    (accessToken, refreshToken, extraParams, profile, done) => {
+      return done(null, profile);
+    }
+  );
+
+  passport.use(strategy);
+
+  // This can be used to keep a smaller payload
+  passport.serializeUser(function(user, done) {
+    done(null, user);
+  });
+
+  passport.deserializeUser(function(user, done) {
+    done(null, user);
+  });
+
+  // ...
+  app.use(passport.initialize());
+  app.use(passport.session());
 
 app.use(methodOverride('_method'));
 mongoose.connect('mongodb://localhost/modestoFCCUsers');
@@ -70,6 +86,7 @@ app.get('/showUser/:_id/projects/new', showProjectForm);
 app.get('/showUser/:_id/userBlog/new', showBlogForm);
 app.get('/userEdit/:_id', showUserEdit);
 app.get('/showUser/:_id/userBlog', showBlog);
+app.get('/login/', login);
 
 app.post('/user/new', createUser);
 app.post("/showUser/:_id/projects", createProject);
