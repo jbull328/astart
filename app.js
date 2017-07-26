@@ -85,7 +85,9 @@ app.get('/showAll/', showAll);
 app.get('/showUser/:_id/projects/new', showProjectForm);
 app.get('/showUser/:_id/userBlog/new', showBlogForm);
 app.get('/userEdit/:_id', showUserEdit);
+app.get('/showUserNew/', showUserNew);
 app.get('/showUser/:_id/userBlog', showBlog);
+app.get('/createUser/', createUser);
 app.get('/login/', login);
 
 app.post('/user/new', createUser);

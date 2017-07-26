@@ -44,7 +44,7 @@ router.get(
     failureRedirect: '/'
   }),
   function(req, res) {
-    res.redirect(req.session.returnTo || '/user');
+    res.redirect(req.session.returnTo || '/showUserFrom');
   }
 );
 

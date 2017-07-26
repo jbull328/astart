@@ -15,8 +15,8 @@ var express = require("express"),
     });
 
     router.get('/user/new', function(req, res) {
-      var userId = req.user.customData.authUserID;
-      if (req.user.customData.authUserID != null) {
+      var userId = req.user;
+      if (req.user!= null) {
           res.redirect('/showUser/' + userId);
       } else {
 
