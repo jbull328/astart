@@ -16,7 +16,8 @@ var express = require("express"),
         if (err) {
           console.log(err);
         } else {
-          res.render("showAll", {allUsers: allUsers,});
+          // res.render("showAll", {allUsers: allUsers,});
+          res.status(200).json({allUsers});
         }
       });
 

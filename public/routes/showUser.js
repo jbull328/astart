@@ -23,12 +23,12 @@ var express = require("express"),
               console.log(err);
             } else {
               Blog.find(function(err, blogs) {
-              if (req.user && userRef._id == req.user.customData.authUserID) {
+              // if (req.user && userRef._id == req.user.customData.authUserID) {
 
-                res.render("showUser", {userRef: userRef, projects: projects, blogs: blogs,});
-              } else {
-                res.render("showUserPublic", {userRef: userRef, projects: projects, blogs: blogs,});
-              }
+                res.status(200).json({userRef: userRef, projects: projects, blogs: blogs,});
+              // } else {
+              //   res.render("showUserPublic", {userRef: userRef, projects: projects, blogs: blogs,});
+              // }
             });
           }
         });
