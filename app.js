@@ -32,6 +32,7 @@ var express = require("express"),
     userAuth = require('./public/routes/login.js'),
     app = express();
 
+    require('./app/routes.js')(app, passport);
 
     app.set('views', __dirname + '/views');
     app.use(bodyParser.urlencoded({extended: true}));
@@ -62,16 +63,17 @@ app.use(function(req, res, next) {
 // set up our express application
 app.use(morgan('dev')); // log every request to the console
 app.use(cookieParser()); // read cookies (needed for auth)
+var configDB = require('./config/database.js');
 
 // required for passport
-app.use(session({ secret: 'ilovescotchscotchyscotchscotch' })); // session secret
+app.use(session({ secret: 'ndaosncu1b9fbvc2g86!vb#iyb12' })); // session secret
 app.use(passport.initialize());
 app.use(passport.session()); // persistent login sessions
 app.use(flash()); // use connect-flash for flash messages stored in session
 
 
 app.use(methodOverride('_method'));
-mongoose.connect('mongodb://localhost/modestoFCCUsers');
+mongoose.connect(configDB.url);
 
 app.get("/", function(req, res) {
   res.status(200);
