@@ -8,22 +8,11 @@ var express = require("express"),
     upload = multer({ dest: 'public/img/avatars' }),
     FccUsers = require('./public/models/fccUsers.js'),
     Project = require('./public/models/userProjects.js'),
-    Blog = require('./public/models/userBlogs.js')
     dotenv = require("dotenv"),
     methodOverride = require("method-override"),
     expressSanitizer = require("express-sanitizer"),
-    showUser = require('./public/routes/showUser.js'),
-    showUserNew = require('./public/routes/showUserForm.js'),
     showAll = require('./public/routes/showAll.js'),
-    showProjectForm = require('./public/routes/showProjectForm.js'),
-    showBlogForm = require('./public/routes/showBlogForm.js'),
-    createUser = require('./public/routes/createUser.js'),
     createProject = require('./public/routes/createProject.js'),
-    createBlog = require('./public/routes/createBlog.js'),
-    userEdit = require('./public/routes/userEdit.js'),
-    userDelete = require('./public/routes/userDelete.js'),
-    showBlog = require('./public/routes/showBlog.js'),
-    showUserEdit = require('./public/routes/showUserEdit.js'),
     passport = require('passport'),
     flash = require('connect-flash'),
     morgan = require('morgan'),
@@ -84,20 +73,7 @@ app.get("/", function(req, res) {
 // app.get('/login', userAuth);
 
 //
-app.get('/showUser/:id', showUser);
-app.get('/user/new', showUserNew);
 app.get('/showAll/', showAll);
-app.get('/showUser/:_id/projects/new', showProjectForm);
-app.get('/showUser/:_id/userBlog/new', showBlogForm);
-app.get('/userEdit/:_id', showUserEdit);
-app.get('/showUser/:_id/userBlog', showBlog);
-
-app.post('/user/new', createUser);
-app.post("/showUser/:_id/projects", createProject);
-app.post("/showUser/:_id/userBlog/new", createBlog);
-
-app.put('/userEdit/:_id', userEdit);
-app.delete('/userDelete/:_id', userDelete);
 
 
 app.listen(process.env.PORT || 3000, function() {
