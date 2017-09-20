@@ -30,9 +30,10 @@ var express = require("express"),
     cookieParser = require('cookie-parser'),
     session = require('express-session'),
     userAuth = require('./public/routes/login.js'),
+    configDB = require('./public/config/database.js')
     app = express();
 
-    require('./app/routes.js')(app, passport);
+    
 
     app.set('views', __dirname + '/views');
     app.use(bodyParser.urlencoded({extended: true}));
@@ -52,34 +53,35 @@ var express = require("express"),
 app.use(bodyParser.json());
 //To prevent errors from Cross Origin Resource Sharing, we will set
 //our headers to allow CORS with middleware like so:
-app.use(function(req, res, next) {
- res.setHeader(‘Access-Control-Allow-Origin’, ‘*’);
- res.setHeader(‘Access-Control-Allow-Credentials’, ‘true’);
- res.setHeader(‘Access-Control-Allow-Methods’, ‘GET,HEAD,OPTIONS,POST,PUT,DELETE’);
- res.setHeader(‘Access-Control-Allow-Headers’, ‘Access-Control-Allow-Headers, Origin,Accept, X-Requested-With, Content-Type, Access-Control-Request-Method, Access-Control-Request-Headers’);
+// app.use(function(req, res, next) {
+//  res.setHeader(‘Access-Control-Allow-Origin’, ‘*’);
+//  res.setHeader(‘Access-Control-Allow-Credentials’, ‘true’);
+//  res.setHeader(‘Access-Control-Allow-Methods’, ‘GET,HEAD,OPTIONS,POST,PUT,DELETE’);
+//  res.setHeader(‘Access-Control-Allow-Headers’, ‘Access-Control-Allow-Headers, Origin,Accept, X-Requested-With, Content-Type, Access-Control-Request-Method, Access-Control-Request-Headers’);
 //==================================================
 //passport setup
 //==================================================
 // set up our express application
 app.use(morgan('dev')); // log every request to the console
 app.use(cookieParser()); // read cookies (needed for auth)
-var configDB = require('./config/database.js');
 
 // required for passport
-app.use(session({ secret: 'ndaosncu1b9fbvc2g86!vb#iyb12' })); // session secret
+app.use(session({ secret: process.env.PASSPORT_SECRET })); // session secret
 app.use(passport.initialize());
 app.use(passport.session()); // persistent login sessions
 app.use(flash()); // use connect-flash for flash messages stored in session
 
+//TODO: add all routest to routes.js page for clean up 
+// require('./app/routes.js')(app, passport);
 
 app.use(methodOverride('_method'));
 mongoose.connect(configDB.url);
 
 app.get("/", function(req, res) {
-  res.status(200);
+  res.render("landing");
 });
 //auth routes
-app.get('/login', userAuth);
+// app.get('/login', userAuth);
 
 //
 app.get('/showUser/:id', showUser);

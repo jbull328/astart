@@ -9,20 +9,27 @@
     <title>Central Valley Developers</title>
   </head>
   <body>
-    <div class="ui fixed inverted menu">
-            <div class="ui container">
-                <div class="header item"><i class="ui icon users"></i>Central Valley Developers</div>
-                <a href="/" class="item">Home</a>
-                <a href="/login" class="item">Login-Sign Up</a>
-                <a href="/showAll" class="item">Developers</a>
-                <form  method="POST" action="/logout">
-                  <button class="ui button item" type="submit"><a class="item">Logout</a></button>
-                </form>
-
-            </div>
+      
+    
+<div id="mastheadStyle" class="ui large inverted vertical masthead center aligned segment">
+    
+    <div class="ui container">
+      <div class="ui large secondary inverted pointing menu">
+        <div class="header item"><i class="ui icon users"></i>Central Valley Developers</div>
+        <a href="/" class="item">Home</a>
+        <a class="item">Work</a>
+        <a class="item">Company</a>
+        <a href="/showAll" class="item">Developers</a>
+        <div class="right item">
+          <a href="/login" class="ui inverted button">Log in</a>
+          <a class="ui inverted button">Sign Up</a>
+          <form  method="POST" action="/logout">
+            <button class="ui button item" type="submit"><a class="item">Logout</a></button>
+          </form>
+        </div>
+      </div>
     </div>
 
-<div id="mastheadStyle" class="ui large inverted vertical masthead center aligned segment">
     <div class="ui text container">
       <h1 class="ui inverted header">Central Valley FreeCodeCamp Members</h1>
       <h3>These hard working software developers aspire to do more, build more, and become more every day.
@@ -33,53 +40,27 @@
     </div>
 </div>
 
-<div id="workExamples" class="ui cards">
-  <div class="ui card">
-  <div class="content">
-    <div class="right floated meta">14h</div>
-    <img class="ui avatar image" src="/img/avatars/test.png"> Elliot
-  </div>
-  <div class="image">
-    <img src="/img/examples/exampleTest.jpg">
-  </div>
-  <div class="content">
-    <span class="right floated">
-      <i class="heart outline like icon"></i>
-      17 likes
-    </span>
-    <i class="comment icon"></i>
-    3 comments
-  </div>
-  <div class="extra content">
-    <div class="ui large transparent left icon input">
-      <i class="heart outline icon"></i>
-      <input type="text" placeholder="Add Comment...">
+<div class="ui vertical stripe segment">
+  <div class="ui middle aligned stackable grid container">
+    <div class="row">
+      <div class="eight wide column">
+        <h3 class="ui header">We Help Companies and Companions</h3>
+        <p>We can give your company superpowers to do things that they never thought possible. Let us delight your customers and empower your needs...through pure data analytics.</p>
+        <h3 class="ui header">We Make Bananas That Can Dance</h3>
+        <p>Yes that's right, you thought it was the stuff of dreams, but even bananas can be bioengineered.</p>
+      </div>
+      <div class="six wide right floated column">
+        <img src="https://images.pexels.com/photos/450278/pexels-photo-450278.jpeg?h=350&auto=compress&cs=tinysrgb" class="ui large bordered rounded image">
+      </div>
+    </div>
+    <div class="row">
+      <div class="center aligned column">
+        <a class="ui huge button">Check Them Out</a>
+      </div>
     </div>
   </div>
 </div>
-<div class="ui card">
-<div class="content">
-  <div class="right floated meta">14h</div>
-  <img class="ui avatar image" src="/img/avatars/test.png">
-  <div class="ui text center">Project Title</div>
-</div>
-<div class="image">
-  <img src="/img/examples/exampleTest.jpg">
-</div>
-<div class="content">
-  <span class="right floated">
-    <i class="heart outline like icon"></i>
-    17 likes
-  </span>
-  <i class="comment icon"></i>
-  3 comments
-</div>
-<div class="extra content">
-  <div class="ui large transparent left icon input">
-    <i class="heart outline icon"></i>
-    <input type="text" placeholder="Add Comment...">
-  </div>
-</div>
+
 </div>
 </div>
 <script>
