@@ -9,17 +9,17 @@
     <title>Central Valley Developers</title>
   </head>
   <body>
-    <div class="ui fixed inverted menu">
-            <div class="ui container">
-                <div class="header item"><i class="ui icon users"></i>FreeCodeCamp of Modesto</div>
-                <a href="/" class="item">Home</a>
-                <a href="/login" class="item">Login-Sign Up</a>
-                <a href="/showAll" class="item">Developers</a>
-                <form  method="POST" action="/logout">
-                  <button id="logoutBtn" class="ui button item" type="submit"><a class="item">Logout</a></button>
-                </form>
-                <div class="right menu">
-                  <a href="/showUser/:id" id="userNameMenu" class="item">Please login</a>
-                </div>
-            </div>
+    <div id="pageHeader" class="ui large secondary inverted pointing menu">
+      <div class="header item"><i class="ui icon users"></i>Central Valley Developers</div>
+      <a href="/" class="item">Home</a>
+      <a class="item">Work</a>
+      <a class="item">Contact Us</a>
+      <a href="/showAll" class="item">Developers</a>
+      <div class="right item">
+        <a href="/login" class="ui inverted button">Log in</a>
+        <a class="ui inverted button">Sign Up</a>
+        <form  method="POST" action="/logout">
+          <button class="ui button item" type="submit"><a class="item">Logout</a></button>
+        </form>
+      </div>
     </div>
