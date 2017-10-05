@@ -24,6 +24,7 @@ var express = require("express"),
     showBlog = require('./public/routes/showBlog.js'),
     showUserEdit = require('./public/routes/showUserEdit.js');
     var session = require('express-session');
+    var cookieParser = require('cookie-parser');
     var passport = require('passport');
     var expressValidator = require('express-validator');
     var LocalStrategy = require('passport-local').Strategy;
@@ -32,7 +33,9 @@ var express = require("express"),
     var bcrypt = require('bcryptjs');
     var mongo = require('mongodb');
     var mongoose = require('mongoose');
+    var db = mongoose.connection;
 
+    var routes = require('./public/routes/index');
     var users = require('./public/routes/users');
 
     app = express();
@@ -130,13 +133,11 @@ var express = require("express"),
 
 
 app.use(methodOverride('_method'));
-mongoose.connect(configDB.url);
 
 app.get("/", function(req, res) {
-  res.status(200);
+  res.render('landing.ejs');
 });
-//auth routes
-app.get('/login', userAuth);
+
 
 //
 app.get('/showUser/:id', showUser);
