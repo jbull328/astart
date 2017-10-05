@@ -14,8 +14,8 @@
       <input type="text" name="customerlName"  placeholder="Last Name">
     </div>
     <div class="field">
-      <label>Current Occupation</label>
-      <input type="text" name="companyName" placeholder="Current Occupation">
+      <label>Company Name</label>
+      <input type="text" name="companyName" placeholder="Company Name">
     </div>
     <div class="field">
       <label>Description</label>
@@ -23,10 +23,13 @@
     </div>
     <div class="field">
         <label>Project Type</label>
-        <input type="text" name="projectType" placeholder="Description">
+        <div class="ui fluid search selection dropdown">
+            <input type="hidden" name="projectType" placeholder="Project Type">
+            <i class="dropdown icon"></i>
+        </div>
     </div>
     <div class="field">
-      <label>Email</label>
+      <label>Email</label>    
       <input type="email" name="customerEmail" placeholder="Email">
     </div>
     <div class="field">

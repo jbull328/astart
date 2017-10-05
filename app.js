@@ -69,6 +69,7 @@ app.get("/", function(req, res) {
 app.get('/showAll/', showAll);
 //Potential customer requests info
 app.get('/requestInfo/', requestInfo);
+app.post('/requestInfo/', requestInfo);
 
 app.listen(process.env.PORT || 3000, function() {
   console.log("The Modesto All Star Server is running");
