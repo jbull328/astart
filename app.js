@@ -23,6 +23,9 @@ var express = require("express"),
     userDelete = require('./public/routes/userDelete.js'),
     showBlog = require('./public/routes/showBlog.js'),
     showUserEdit = require('./public/routes/showUserEdit.js');
+    var path = require('path');
+    var favicon = require('serve-favicon');
+    var logger = require('morgan');
     var session = require('express-session');
     var cookieParser = require('cookie-parser');
     var passport = require('passport');
@@ -35,8 +38,8 @@ var express = require("express"),
     var mongoose = require('mongoose');
     var db = mongoose.connection;
 
-    var routes = require('./public/routes/index');
-    var users = require('./public/routes/users');
+    var routes = require('./public/routes/index.js');
+    var users = require('./public/routes/users.js');
 
     app = express();
 
@@ -84,7 +87,6 @@ var express = require("express"),
   }));
 
   app.use(cookieParser());
-  app.use(express.static(path.join(__dirname, 'public')));
 
   app.use(flash());
   app.use(function (req, res, next) {
@@ -134,28 +136,22 @@ var express = require("express"),
 
 app.use(methodOverride('_method'));
 
-app.get("/", function(req, res) {
-  res.render('landing.ejs');
-});
+
+// //
+// app.get('/showUser/:id', showUser);
+// app.get('/user/new', showUserNew);
+// app.get('/showAll/', showAll);
+// app.get('/showUser/:_id/projects/new', showProjectForm);
+// app.get('/showUser/:_id/userBlog/new', showBlogForm);
+// app.get('/userEdit/:_id', showUserEdit);
+// app.get('/showUser/:_id/userBlog', showBlog);
+
+// app.post('/user/new', createUser);
+// app.post("/showUser/:_id/projects", createProject);
+// app.post("/showUser/:_id/userBlog/new", createBlog);
+
+// app.put('/userEdit/:_id', userEdit);
+// app.delete('/userDelete/:_id', userDelete);
 
 
-//
-app.get('/showUser/:id', showUser);
-app.get('/user/new', showUserNew);
-app.get('/showAll/', showAll);
-app.get('/showUser/:_id/projects/new', showProjectForm);
-app.get('/showUser/:_id/userBlog/new', showBlogForm);
-app.get('/userEdit/:_id', showUserEdit);
-app.get('/showUser/:_id/userBlog', showBlog);
-
-app.post('/user/new', createUser);
-app.post("/showUser/:_id/projects", createProject);
-app.post("/showUser/:_id/userBlog/new", createBlog);
-
-app.put('/userEdit/:_id', userEdit);
-app.delete('/userDelete/:_id', userDelete);
-
-
-app.listen(process.env.PORT || 3000, function() {
-  console.log("The Modesto All Star Server is running");
-});
+module.exports = app;

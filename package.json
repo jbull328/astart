@@ -4,7 +4,8 @@
   "description": "Profiles for fellow desvelopers",
   "main": "app.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node ./bin/www"
   },
   "author": "John Bull",
   "license": "ISC",
@@ -29,6 +30,7 @@
     "morgan": "~1.0.0",
     "express-messages": "*",
     "express-session": "^1.13.0",
-    "express-validator": "*"
+    "express-validator": "*",
+    "serve-favicon": "~2.3.0"
   }
 }
