@@ -1,6 +1,5 @@
 var express = require("express"),
     bodyParser = require("body-parser"),
-    mongoose = require("mongoose"),
     cloudinary = require("cloudinary"),
     multer = require("multer"),
     path = require('path'),
@@ -23,16 +22,21 @@ var express = require("express"),
     userEdit = require('./public/routes/userEdit.js'),
     userDelete = require('./public/routes/userDelete.js'),
     showBlog = require('./public/routes/showBlog.js'),
-    showUserEdit = require('./public/routes/showUserEdit.js'),
-    passport = require('passport'),
-    flash = require('connect-flash'),
-    morgan = require('morgan'),
-    cookieParser = require('cookie-parser'),
-    session = require('express-session'),
-    userAuth = require('./public/routes/login.js'),
+    showUserEdit = require('./public/routes/showUserEdit.js');
+    var session = require('express-session');
+    var passport = require('passport');
+    var expressValidator = require('express-validator');
+    var LocalStrategy = require('passport-local').Strategy;
+    var upload = multer({dest: './uploads'});
+    var flash = require('connect-flash');
+    var bcrypt = require('bcryptjs');
+    var mongo = require('mongodb');
+    var mongoose = require('mongoose');
+
+    var users = require('./public/routes/users');
+
     app = express();
 
-    require('./app/routes.js')(app, passport);
 
     app.set('views', __dirname + '/views');
     app.use(bodyParser.urlencoded({extended: true}));
@@ -48,28 +52,81 @@ var express = require("express"),
       api_secret: process.env.API_SECRET,
   });
 
-//prevent cross origin issues
-app.use(bodyParser.json());
-//To prevent errors from Cross Origin Resource Sharing, we will set
-//our headers to allow CORS with middleware like so:
-app.use(function(req, res, next) {
- res.setHeader(‘Access-Control-Allow-Origin’, ‘*’);
- res.setHeader(‘Access-Control-Allow-Credentials’, ‘true’);
- res.setHeader(‘Access-Control-Allow-Methods’, ‘GET,HEAD,OPTIONS,POST,PUT,DELETE’);
- res.setHeader(‘Access-Control-Allow-Headers’, ‘Access-Control-Allow-Headers, Origin,Accept, X-Requested-With, Content-Type, Access-Control-Request-Method, Access-Control-Request-Headers’);
-//==================================================
-//passport setup
-//==================================================
-// set up our express application
-app.use(morgan('dev')); // log every request to the console
-app.use(cookieParser()); // read cookies (needed for auth)
-var configDB = require('./config/database.js');
+  app.use(session({
+    secret:'secret',
+    saveUninitialized: true,
+    resave: true
+  }));
 
-// required for passport
-app.use(session({ secret: 'ndaosncu1b9fbvc2g86!vb#iyb12' })); // session secret
-app.use(passport.initialize());
-app.use(passport.session()); // persistent login sessions
-app.use(flash()); // use connect-flash for flash messages stored in session
+  // Passport
+  app.use(passport.initialize());
+  app.use(passport.session());
+
+  // Validator
+  app.use(expressValidator({
+    errorFormatter: function(param, msg, value) {
+        var namespace = param.split('.')
+        , root    = namespace.shift()
+        , formParam = root;
+
+      while(namespace.length) {
+        formParam += '[' + namespace.shift() + ']';
+      }
+      return {
+        param : formParam,
+        msg   : msg,
+        value : value
+      };
+    }
+  }));
+
+  app.use(cookieParser());
+  app.use(express.static(path.join(__dirname, 'public')));
+
+  app.use(flash());
+  app.use(function (req, res, next) {
+    res.locals.messages = require('express-messages')(req, res);
+    next();
+  });
+
+  app.get('*', function(req, res, next) {
+    res.locals.user = req.user || null;
+    next();
+  })
+
+  app.use('/', routes);
+  app.use('/users', users);
+
+  // catch 404 and forward to error handler
+  app.use(function(req, res, next) {
+    var err = new Error('Not Found');
+    err.status = 404;
+    next(err);
+  });
+
+  // error handlers
+
+  // development error handler
+  // will print stacktrace
+  if (app.get('env') === 'development') {
+    app.use(function(err, req, res, next) {
+      res.status(err.status || 500);
+      res.render('error', {
+        message: err.message,
+        error: err
+      });
+    });
+  }
+
+  // production error handler
+  // no stacktraces leaked to user
+  app.use(function(err, req, res, next) {
+    res.status(err.status || 500);
+    res.render('error', {
+      message: err.message,
+      error: {}
+    });
+  });
 
 
 app.use(methodOverride('_method'));
