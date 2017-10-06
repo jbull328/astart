@@ -12,7 +12,7 @@ var express = require("express"),
     });
 
     router.get("/showAll/", function(req, res) {
-      FccUsers.find(function(err, allUsers) {
+      Users.find(function(err, allUsers) {
         if (err) {
           console.log(err);
         } else {

@@ -24,7 +24,7 @@
 
 <div class="row">
   <div class="ui three column stacking grid container" id="allUsersMain">
-      <% allUsers.forEach(function(userRef) { %>
+      <% userRef.forEach(function(userRef) { %>
             <div class="column">
             <a href="/showUser/<%= userRef._id %>">
               <div class="ui fluid card">
@@ -32,9 +32,9 @@
                   <img class="avatarImg" src="<%= userRef.imageRef %>" width="350" height="200">
                 </div>
                 <div class="content">
-                  <div class="header"><%= userRef.fName %> <%= userRef.lName %></div>
+                  <div class="header"><%= userRef.name %></div>
                   <div class="description">
-                    <p><%= userRef.currentOccupation %></p>
+                    <!-- <p><%= userRef.currentOccupation %></p> -->
                   </div>
                 </div>
               </div>

@@ -22,8 +22,27 @@ var UserSchema = mongoose.Schema({
     },
     profileimage: {
       type: String
-    }
+    },
+    fName: String,
+    lName: String,
+    currentOccupation: String,
+    description: String,
+    userEmail: String,
+    imageRef: String,
+    projects: [
+        {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: "Project"
+        }
+    ],
+    blogs: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Blog"
+      }
+    ]
 });
+
 
 var User = module.exports = mongoose.model('User', UserSchema);
 

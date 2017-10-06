@@ -4,7 +4,7 @@
 
   <div class="ui container mainForm">
     <div class="ui huge header">Edit your profile</div>
-    <form class="ui form" action="/userEdit/<%=userRef.id%>?_method=PUT " method="POST">
+    <form class="ui form" action="/users/edit/<%=userRef.id%>?_method=PUT " method="POST">
     <div class="field">
       <label>First Name</label>
       <input type="text" name="userRef[fName]" value="<%= userRef.fName %>" placeholder="First Name">

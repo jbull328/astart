@@ -2,33 +2,27 @@
 
 <div class="container">
 
-<div class="col-sm-6 col-sm-offset-3">
-
-    <h1><span class="fa fa-sign-in"></span> Login</h1>
-
-    <!-- show any messages that come back with authentication -->
-    <% if (message.length > 0) { %>
-        <div class="alert alert-danger"><%= message %></div>
-    <% } %>
-
-    <!-- LOGIN FORM -->
-    <form action="/login" method="post">
-        <div class="form-group">
-            <label>Email</label>
-            <input type="text" class="form-control" name="email">
-        </div>
-        <div class="form-group">
-            <label>Password</label>
-            <input type="password" class="form-control" name="password">
+    <div class="ui container" id="">
+        
+          <div class="ui container mainForm">
+            <div class="ui huge header">Login</div>
+            <form class="ui form" action="/users/login" method="POST">
+            <div class="field">
+              <label>Username</label>
+              <input type="text" name="username" value="" placeholder="Username">
+            </div>
+            <div class="field">
+              <label>Password</label>
+              <input type="password" name="password" value=""placeholder="Password">
+            </div>
+            <button class="ui button" type="submit">Submit</button>
+           </form>
+          </div>
         </div>
 
-        <button type="submit" class="btn btn-warning btn-lg">Login</button>
-    </form>
-
-    <hr>
-
-    <p>Need an account? <a href="/register">Register</a></p>
-    <p>Or go <a href="/">home</a>.</p>
+        <p>Need an account? <a href="/register">Register</a></p>
+        <p>Or go <a href="/">home</a>.</p>
+    </div>
 
 </div>
 

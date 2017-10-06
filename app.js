@@ -137,21 +137,21 @@ var express = require("express"),
 app.use(methodOverride('_method'));
 
 
-// //
-// app.get('/showUser/:id', showUser);
-// app.get('/user/new', showUserNew);
-// app.get('/showAll/', showAll);
-// app.get('/showUser/:_id/projects/new', showProjectForm);
-// app.get('/showUser/:_id/userBlog/new', showBlogForm);
-// app.get('/userEdit/:_id', showUserEdit);
-// app.get('/showUser/:_id/userBlog', showBlog);
+//
+app.get('/showUser/:id', showUser);
+app.get('/user/new', showUserNew);
+app.get('/showAll/', showAll);
+app.get('/showUser/:_id/projects/new', showProjectForm);
+app.get('/showUser/:_id/userBlog/new', showBlogForm);
+app.get('/userEdit/:_id', showUserEdit);
+app.get('/showUser/:_id/userBlog', showBlog);
 
-// app.post('/user/new', createUser);
-// app.post("/showUser/:_id/projects", createProject);
-// app.post("/showUser/:_id/userBlog/new", createBlog);
+app.post('/user/new', createUser);
+app.post("/showUser/:_id/projects", createProject);
+app.post("/showUser/:_id/userBlog/new", createBlog);
 
-// app.put('/userEdit/:_id', userEdit);
-// app.delete('/userDelete/:_id', userDelete);
+app.put('/userEdit/:_id', userEdit);
+app.delete('/userDelete/:_id', userDelete);
 
 
 module.exports = app;
