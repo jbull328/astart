@@ -5,7 +5,7 @@ var upload = multer({dest: './uploads'});
 var passport = require('passport');
 var LocalStrategy = require('passport-local').Strategy;
 
-var User = require('../models/user');
+var User = require('../models/user.js');
 
 /* GET users listing. */
 
@@ -21,7 +21,7 @@ router.post('/login',
   passport.authenticate('local',{failureRedirect:'/users/login', failureFlash: 'Invalid username or password'}),
   function(req, res) {
    req.flash('success', 'You are now logged in');
-   res.redirect('/');
+   res.redirect('/showAll');
 });
 
 passport.serializeUser(function(user, done) {

@@ -13,8 +13,9 @@
             <div class="ui container">
                 <div class="header item"><i class="ui icon users"></i>FreeCodeCamp of Modesto</div>
                 <a href="/" class="item">Home</a>
-                <a href="/login" class="item">Login-Sign Up</a>
+                <a href="/users/login" class="item">Login-Sign Up</a>
                 <a href="/showAll" class="item">Developers</a>
+                <a href="/users/details/<%=userRef._id%>" class="item">My Account</a>             
                 <form  method="POST" action="/logout">
                   <button class="ui button item" type="submit"><a class="item">Logout</a></button>
                 </form>
@@ -34,7 +35,7 @@
                 <div class="content">
                   <div class="header"><%= userRef.name %></div>
                   <div class="description">
-                    <!-- <p><%= userRef.currentOccupation %></p> -->
+                    <p><%= userRef.currentOccupation %></p>
                   </div>
                 </div>
               </div>

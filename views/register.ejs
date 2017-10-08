@@ -4,6 +4,16 @@
 
   <div class="ui container mainForm">
     <div class="ui huge header">Register</div>
+    <% if (global.errors) { %>
+      <% for(var i=0; i < errors.length; i++) { %>
+        <div class="ui warning message transition hidden">
+          <i class="close icon"></i>
+         <div class="header">
+          <%= error.msg %>
+         </div>
+        </div>
+      <%  } %>
+    <%  } %>
     <form class="ui form" action="/users/register" method="POST">
     <div class="field">
       <label>Name</label>
