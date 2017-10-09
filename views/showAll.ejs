@@ -15,10 +15,11 @@
                 <a href="/" class="item">Home</a>
                 <a href="/users/login" class="item">Login-Sign Up</a>
                 <a href="/showAll" class="item">Developers</a>
-                <a href="/users/details/<%=userRef._id%>" class="item">My Account</a>             
-                <form  method="POST" action="/logout">
-                  <button class="ui button item" type="submit"><a class="item">Logout</a></button>
-                </form>
+                <% if (user) { %>
+                 <a href="/users/details/<%=user._id%>" class="item">My Account</a>    
+                <% } %>         
+                <a href="/users/logout" class="item">Logout</a>
+                
 
             </div>
     </div>

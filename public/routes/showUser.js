@@ -14,7 +14,6 @@ var express = require("express"),
 
     router.get('/showUser/:id', function(req, res) {
       FccUsers.findById(req.params.id).populate('projects blogs').exec(function(err, userRef) {
-
         if (err) {
           console.log(err);
         } else {

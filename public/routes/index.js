@@ -9,32 +9,20 @@ router.get('/', function(req, res, next) {
   res.render('landing');
 });
 
-// Show all public. This is for non logged in users, and can be changes later for a more dry aproach*/
-router.get("/showAllPublic/", function(req, res) {
-  User.find(function(err, userRef) {
-    if (err) {
-      console.log(err);
-    } else {
-      res.render("showAll", {userRef: userRef,});
-    }
-  });
-
-});
 
 router.get("/showAll/", ensureAuthenticated, function(req, res) {
   User.find(function(err, userRef) {
     if (err) {
       console.log(err);
     } else {
-      res.render("showAll", {userRef: userRef,});
+      res.render("showAll", {userRef: userRef, user: req.user,});
     }
   });
 
 });;
 
-router.get('/showUser/:id', ensureAuthenticated, function(req, res) {
+router.get('/showUser/:id', function(req, res) {
   User.findById(req.params.id).populate('projects blogs').exec(function(err, userRef) {
-
     if (err) {
       console.log(err);
     } else {
@@ -43,9 +31,9 @@ router.get('/showUser/:id', ensureAuthenticated, function(req, res) {
           console.log(err);
         } else {
           Blog.find(function(err, blogs) {
-          if (req.user) {
+          if (req.user && userRef._id) {
 
-            res.render("showUser", {userRef: userRef, projects: projects, blogs: blogs, isLoggedin: isLoggedin(),});
+            res.render("showUser", {userRef: userRef, projects: projects, blogs: blogs,});
           } else {
             res.render("showUserPublic", {userRef: userRef, projects: projects, blogs: blogs,});
           }
@@ -61,7 +49,7 @@ function ensureAuthenticated(req, res, next) {
   if(req.isAuthenticated()){
     return next();
   }
-  res.redirect('/user/login');
+  res.redirect('/users/login');
 }
 
 
