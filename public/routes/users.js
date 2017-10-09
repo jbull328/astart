@@ -1,9 +1,16 @@
 var express = require('express');
 var router = express.Router();
 var multer = require('multer');
-var upload = multer({dest: './uploads'});
 var passport = require('passport');
 var LocalStrategy = require('passport-local').Strategy;
+var Project = require("../models/userProjects.js");
+var Blog = require('../models/userBlogs.js');
+var methodOverride = require("method-override");
+var cloudinary = require("cloudinary");
+var path = require('path');
+var upload = multer({ dest: 'public/img/avatars' });
+// methodOverride = require("method-override"),
+// expressSanitizer = require("express-sanitizer");
 
 var User = require('../models/user.js');
 
@@ -58,7 +65,12 @@ router.post('/register', function(req, res, next) {
   var username = req.body.username;
   var password = req.body.password;
   var password2 = req.body.password2;
-
+  var currentOccupation = req.body.currentOccupation;
+  var description = req.body.description;
+  var avatar = req.file.path;
+  cloudinary.uploader.upload(avatar, function(result) {
+  var imageRef = result.url;
+  });
 
 
   // Form Validator
@@ -102,7 +114,7 @@ router.get('/logout', function(req, res) {
   res.redirect('/');
 });
 
-router.get('/details/:id', function(req, res) {
+router.get('/details/:id', ensureAuthenticated, function(req, res) {
   User.findById(req.params.id, function(err, userRef) {
     if (err) {
       console.log(err);
@@ -111,5 +123,51 @@ router.get('/details/:id', function(req, res) {
     }
   });
 });
+
+router.post("/details/:id", ensureAuthenticated, function(req, res) {
+  // req.body.customer.body = req.sanitize(req.customer.customer.body);
+  var currentOccupation = req.body.currentOccupation;
+  var description = req.body.description;
+  var avatar = req.file.path;
+  cloudinary.uploader.upload(avatar, function(result) {
+  var imageRef = result.url;
+
+  User.findByIdAndUpdate(req.params.id, req.body.userRef, function(err, userRef) {
+    var id = req.params.id;
+    if (err) {
+      console.log(err);
+      res.redirect("/users/showUser/" + id);
+    } else {
+      console.log(userRef);
+      res.redirect("/users/showUser/" + id);
+    }
+  });
+ });
+});
+
+router.get('/showUser/:id', function(req, res) {
+  User.findById(req.params.id).populate('projects blogs').exec(function(err, userRef) {
+    if (err) {
+      console.log(err);
+    } else {
+      Project.find(function(err, projects) {
+        if (err) {
+          console.log(err);
+        } else {
+          Blog.find(function(err, blogs) {
+            res.render("showUser", {userRef: userRef, projects: projects, blogs: blogs,});
+        });
+      }
+    });
+    }
+  });
+});
+
+function ensureAuthenticated(req, res, next) {
+  if(req.isAuthenticated()){
+    return next();
+  }
+  res.redirect('/users/login');
+}
 
 module.exports = router;

@@ -9,77 +9,36 @@
     <title>Central Valley Developers</title>
   </head>
   <body>
-    <div class="ui fixed inverted menu">
-            <div class="ui container">
-                <div class="header item"><i class="ui icon users"></i>Central Valley Developers</div>
-                <a href="/" class="item">Home</a>
-                <a href="/users/login" class="item">Login</a>
-                <a href="/showAllPublic" class="item">Developers</a>
-                <a href="/users/logout" class="item">Logout</a>
+      <div class="ui fixed inverted menu">
+          <div class="ui container">
+              <div class="header item"><i class="ui icon users"></i>FreeCodeCamp of Modesto</div>
+              <a href="/" class="item">Home</a>
+              <a href="/users/login" class="item">Login-Sign Up</a>
+              <a href="/showAll" class="item">Developers</a>
+              <% if (user) { %>
+               <a href="/users/details/<%=user._id%>" class="item">My Account</a>    
+              <% } %>   
+              <% if (user) { %>      
+              <a href="/users/logout" class="item">Logout</a>
+              <% } %>
 
-            </div>
-    </div>
-
-<div id="mastheadStyle" class="ui large inverted vertical masthead center aligned segment">
-    <div class="ui text container">
-      <h1 class="ui inverted header">Central Valley FreeCodeCamp Members</h1>
-      <h3>These hard working software developers aspire to do more, build more, and become more every day.
-        Each one has a unique story and style to bring to the table. We came together to help each other out, as well as share in each other successes and learning experiences.</h3>
+          </div>
       </div>
-      <a href="/showAll"><button id="browseBtn" class="ui button large">Browse</button></a>
 
-    </div>
-</div>
+      <div id="mastheadStyle" class="ui large inverted vertical masthead center aligned segment">
+          <div class="ui text container">
+            <h1 class="ui inverted header">Central Valley FreeCodeCamp Members</h1>
+            <h3>These hard working software developers aspire to do more, build more, and become more every day.
+              Each one has a unique story and style to bring to the table. We came together to help each other out, as well as share in each other successes and learning experiences.</h3>
+            </div>
+            <a href="/showAll"><button id="browseBtn" class="ui button large">Browse</button></a>
 
-<div id="workExamples" class="ui cards">
-  <div class="ui card">
-  <div class="content">
-    <div class="right floated meta">14h</div>
-    <img class="ui avatar image" src="/img/avatars/test.png"> Elliot
-  </div>
-  <div class="image">
-    <img src="/img/examples/exampleTest.jpg">
-  </div>
-  <div class="content">
-    <span class="right floated">
-      <i class="heart outline like icon"></i>
-      17 likes
-    </span>
-    <i class="comment icon"></i>
-    3 comments
-  </div>
-  <div class="extra content">
-    <div class="ui large transparent left icon input">
-      <i class="heart outline icon"></i>
-      <input type="text" placeholder="Add Comment...">
-    </div>
-  </div>
-</div>
-<div class="ui card">
-<div class="content">
-  <div class="right floated meta">14h</div>
-  <img class="ui avatar image" src="/img/avatars/test.png">
-  <div class="ui text center">Project Title</div>
-</div>
-<div class="image">
-  <img src="/img/examples/exampleTest.jpg">
-</div>
-<div class="content">
-  <span class="right floated">
-    <i class="heart outline like icon"></i>
-    17 likes
-  </span>
-  <i class="comment icon"></i>
-  3 comments
-</div>
-<div class="extra content">
-  <div class="ui large transparent left icon input">
-    <i class="heart outline icon"></i>
-    <input type="text" placeholder="Add Comment...">
-  </div>
-</div>
-</div>
-</div>
+          </div>
+      </div>
+
+      
+
+
 <script>
   (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
   (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),

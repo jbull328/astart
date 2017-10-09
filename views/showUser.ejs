@@ -1,17 +1,21 @@
-<% include partials/userHeader %>
+<% include partials/head %>
 <div class="ui middle aligned stackable grid container">
 <div class="ui card four wide column" id="infoCard">
 <div class="image">
   <img src="<%= userRef.imageRef %>">
 </div>
 <div class="content">
-  <a class="header"><%= userRef.fName %> <%= userRef.lName %> </a>
+  <% if (userRef.name) { %>
+    <a class="header"><%= userRef.name %> </a>
+  <% } %>
   <div class="meta">
     <span class="date">Joined in 2013</span>
   </div>
-  <div class="description">
-    <%= userRef.currentOccupation %>
-  </div>
+  <% if (userRef.description) { %>
+    <div class="description">
+      <%= userRef.currentOccupation %>
+    </div>
+  <% } %>
 </div>
 <div class="extra content">
   <a>
@@ -24,16 +28,21 @@
   <div class="ui header large">
     Description
   </div>
-  <div class=" ui text">
-    <%= userRef.description %>
-  </div>
+  <% if (userRef.description) { %>
+    <div class=" ui text">
+      <%= userRef.description %>
+    </div>
+  <% } %>
 </div>
-<div class="row">
-  <div class="large ui buttons center aligned column" id="userCallout">
-    <a href="/showUser/<%= userRef._id %>/projects/new"><button class="ui button">Add a Project</button></a>
-    <a href="/showUser/<%= userRef._id %>/userBlog/new"><button class="ui button">Add a Blog Post</button></a>
+<% if (user) { %>
+  <div class="row">
+    <div class="large ui buttons center aligned column" id="userCallout">
+      <a href="/users/details/<%= userRef._id %>"><button class="ui button">Edit Details</button></a>
+      <a href="/users/showUser/<%= userRef._id %>/projects/new"><button class="ui button">Add a Project</button></a>
+      <a href="/users/showUser/<%= userRef._id %>/userBlog/new"><button class="ui button">Add a Blog Post</button></a>
+    </div>
   </div>
-</div>
+<% } %>
 
   <div class="ui row">
   <div id="workExamples" class="ui cards">
