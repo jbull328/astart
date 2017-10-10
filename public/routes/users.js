@@ -119,7 +119,7 @@ router.get('/details/:id', ensureAuthenticated, function(req, res) {
     if (err) {
       console.log(err);
     }  else {
-      res.render('userDetails', {userRef: userRef,});
+      res.render('userDetails', {userRef: userRef, user: req.user,});
     }
   });
 });
@@ -155,7 +155,8 @@ router.get('/showUser/:id', function(req, res) {
           console.log(err);
         } else {
           Blog.find(function(err, blogs) {
-            res.render("showUser", {userRef: userRef, projects: projects, blogs: blogs,});
+            console.log(user)
+            res.render("showUser", {userRef: userRef, projects: projects, blogs: blogs, user: req.user,});
         });
       }
     });
