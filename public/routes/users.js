@@ -155,8 +155,12 @@ router.get('/showUser/:id', function(req, res) {
           console.log(err);
         } else {
           Blog.find(function(err, blogs) {
-            console.log(user)
-            res.render("showUser", {userRef: userRef, projects: projects, blogs: blogs, user: req.user,});
+            if (req.user) {
+              console.log(req.user)
+              res.render("showUser", {userRef: userRef, projects: projects, blogs: blogs, user: req.user,});
+            } else {
+              res.render("showUserPublic", {userRef: userRef, projects: projects, blogs: blogs,});
+            }
         });
       }
     });

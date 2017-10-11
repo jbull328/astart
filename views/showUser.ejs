@@ -34,7 +34,7 @@
     </div>
   <% } %>
 </div>
-<% if (user) { %>
+<% if (userRef.id == user.id) { %>
   <div class="row">
     <div class="large ui buttons center aligned column" id="userCallout">
       <a href="/users/details/<%= userRef._id %>"><button class="ui button">Edit Details</button></a>
