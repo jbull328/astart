@@ -9,8 +9,8 @@ var methodOverride = require("method-override");
 var cloudinary = require("cloudinary");
 var path = require('path');
 var upload = multer({ dest: 'public/img/avatars' });
-// methodOverride = require("method-override"),
-// expressSanitizer = require("express-sanitizer");
+var methodOverride = require("method-override");
+var expressSanitizer = require("express-sanitizer");
 
 var User = require('../models/user.js');
 
@@ -67,11 +67,11 @@ router.post('/register', function(req, res, next) {
   var password2 = req.body.password2;
   var currentOccupation = req.body.currentOccupation;
   var description = req.body.description;
+  
   var avatar = req.file.path;
   cloudinary.uploader.upload(avatar, function(result) {
   var imageRef = result.url;
-  });
-
+  console.log("image" + result + "~~~~~~~~~~~~~~~");
 
   // Form Validator
   req.checkBody('name','Name field is required').notEmpty();
@@ -94,6 +94,8 @@ router.post('/register', function(req, res, next) {
       email: email,
       username: username,
       password: password,
+      currentOccupation: currentOccupation,
+      description: description,
     });
 
     User.createUser(newUser, function(err, user){
@@ -107,11 +109,13 @@ router.post('/register', function(req, res, next) {
     res.redirect('/showAll');
   }
 });
+});
 
 router.get('/logout', function(req, res) {
   req.logout();
   req.flash('success', 'You are now logged out');
   res.redirect('/');
+  
 });
 
 router.get('/details/:id', ensureAuthenticated, function(req, res) {
@@ -145,6 +149,7 @@ router.post("/details/:id", ensureAuthenticated, function(req, res) {
  });
 });
 
+//This is the user profile display route for both logged in and non logged in accounts.
 router.get('/showUser/:id', function(req, res) {
   User.findById(req.params.id).populate('projects blogs').exec(function(err, userRef) {
     if (err) {
