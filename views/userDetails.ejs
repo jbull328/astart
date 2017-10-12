@@ -4,7 +4,7 @@
 
   <div class="ui container mainForm">
     <div class="ui huge header">Add some details to your profile</div>
-    <form class="ui form" action="/users/details/<%=userRef.id%>?_method=PUT" method="POST" enctype="multipart/form-data">
+    <form class="ui form" action="/users/details/<%=userRef.id%>" method="POST" enctype="multipart/form-data">
     <div class="field">
       <label>Name</label>
       <input type="text" name="userRef[name]" value="<%= userRef.name %>" placeholder="First Name">

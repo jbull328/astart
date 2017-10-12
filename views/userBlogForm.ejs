@@ -1,11 +1,11 @@
-<% include partials/userHeader %>
+<% include partials/head %>
 
 
 <div class="ui container" id="">
 
   <div class="ui container mainForm">
     <div class="ui huge header">Blog Entry</div>
-    <form class="ui form" action="/showUser/<%= userRef.id %>/userBlog/new" method="POST" enctype="multipart/form-data">
+    <form class="ui form" action="/posts/<%= userRef.id %>/userBlog/new" method="POST" enctype="multipart/form-data">
     <div class="field">
       <label>Blog Title</label>
       <input type="text" name="blogTitle"  placeholder="Title">
@@ -19,7 +19,7 @@
       <textarea id="blogEntry" type="text" name="blogBody" value="simplemde.value" placeholder=""></textarea>
     </div>
     <button class="ui button" type="submit">Submit</button>
-    <a href="/" class="ui button">Cancel</a>
+    <a href="/users/showUser/<%= userRef.id %>" class="ui button">Cancel</a>
    </form>
 
   </div>

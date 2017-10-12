@@ -5,9 +5,7 @@
   <img src="<%= userRef.imageRef %>">
 </div>
 <div class="content">
-  <% if (userRef.name) { %>
-    <a class="header"><%= userRef.name %> </a>
-  <% } %>
+    <h3 class="header"><%= userRef.name %> </h3>
   <div class="meta">
     <span class="date">Joined in 2013</span>
   </div>
@@ -38,8 +36,8 @@
   <div class="row">
     <div class="large ui buttons center aligned column" id="userCallout">
       <a href="/users/details/<%= userRef._id %>"><button class="ui button">Edit Details</button></a>
-      <a href="/users/showUser/<%= userRef._id %>/projects/new"><button class="ui button">Add a Project</button></a>
-      <a href="/users/showUser/<%= userRef._id %>/userBlog/new"><button class="ui button">Add a Blog Post</button></a>
+      <a href="/posts/<%= userRef._id %>/projects/new"><button class="ui button">Add a Project</button></a>
+      <a href="/posts/<%= userRef._id %>/userBlog/new"><button class="ui button">Add a Blog Post</button></a>
     </div>
   </div>
 <% } %>

@@ -1,36 +1,16 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.9/semantic.min.css" rel="stylesheet"/>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.9/semantic.min.js"></script>
-    <link href="/styles/app.css" rel="stylesheet"/>
-    <meta charset="utf-8">
-    <title>Central Valley Developers</title>
-  </head>
-  <body>
-    <div class="ui fixed inverted menu">
-            <div class="ui container">
-                <div class="header item"><i class="ui icon users"></i>Central Valley Developers</div>
-                <a href="/" class="item">Home</a>
-                <a href="/login" class="item">Login-Sign Up</a>
-                <a href="/showAll" class="item">Developers</a>
-
-            </div>
-    </div>
-    
+<% include partials/head %>    
 <div class="ui middle aligned stackable grid container">
 <div class="ui card four wide column" id="infoCard">
 <div class="image">
   <img src="<%= userRef.imageRef %>">
 </div>
 <div class="content">
-  <a class="header"><%= userRef.fName %></a>
+  <a class="header"><%= userRef.name %></a>
   <div class="meta">
     <span class="date">Joined in 2013</span>
   </div>
   <div class="description">
-    <%= userRef.fName %> <%= userRef.currentOccupation %>
+    <%= userRef.name %> <%= userRef.currentOccupation %>
   </div>
 </div>
 <div class="extra content">
@@ -56,7 +36,7 @@
     <div class="ui card">
     <div class="content">
       <div class="right floated meta">14h</div>
-      <img class="ui avatar image" src="<%= userRef.imageRef %>"> <%= userRef.fName %>
+      <img class="ui avatar image" src="<%= userRef.imageRef %>"> <%= userRef.name %>
       <div class="ui text center"><%= project.projTitle %></div>
     </div>
     <div class="image">

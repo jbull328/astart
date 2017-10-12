@@ -68,10 +68,6 @@ router.post('/register', function(req, res, next) {
   var currentOccupation = req.body.currentOccupation;
   var description = req.body.description;
   
-  var avatar = req.file.path;
-  cloudinary.uploader.upload(avatar, function(result) {
-  var imageRef = result.url;
-  console.log("image" + result + "~~~~~~~~~~~~~~~");
 
   // Form Validator
   req.checkBody('name','Name field is required').notEmpty();
@@ -109,7 +105,6 @@ router.post('/register', function(req, res, next) {
     res.redirect('/showAll');
   }
 });
-});
 
 router.get('/logout', function(req, res) {
   req.logout();
@@ -128,7 +123,7 @@ router.get('/details/:id', ensureAuthenticated, function(req, res) {
   });
 });
 
-router.post("/details/:id", ensureAuthenticated, function(req, res) {
+router.post("/details/:id",  upload.single('avatar'), ensureAuthenticated, function(req, res) {
   // req.body.customer.body = req.sanitize(req.customer.customer.body);
   var currentOccupation = req.body.currentOccupation;
   var description = req.body.description;
