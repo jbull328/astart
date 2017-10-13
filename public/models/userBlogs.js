@@ -1,5 +1,9 @@
 var mongoose = require("mongoose");
 
+mongoose.connect('mongodb://localhost/userBolgs');
+
+var db = mongoose.connection;
+
 var userBlogs = new mongoose.Schema({
   blogTitle: String,
   blogImage: String,

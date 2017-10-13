@@ -1,5 +1,9 @@
 var mongoose = require('mongoose');
 
+mongoose.connect('mongodb://localhost/userProjects');
+
+var db = mongoose.connection;
+
 var userProjects = new mongoose.Schema({
   projTitle: String,
   projDescription: String,

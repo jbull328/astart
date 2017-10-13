@@ -6,7 +6,8 @@ var express = require("express"),
     router = express.Router(),
     upload = multer({ dest: 'public/img/avatars' }),
     Project = require('./public/models/userProjects.js'),
-    Blog = require('./public/models/userBlogs.js')
+    Blog = require('./public/models/userBlogs.js'),
+    User = require('./public/models/user.js'),
     dotenv = require("dotenv"),
     methodOverride = require("method-override"),
     expressSanitizer = require("express-sanitizer");
@@ -97,32 +98,11 @@ var express = require("express"),
     next(err);
   });
 
-  // error handlers
-
-  // development error handler
-  // will print stacktrace
-  if (app.get('env') === 'development') {
-    app.use(function(err, req, res, next) {
-      res.status(err.status || 500);
-      res.render('error', {
-        message: err.message,
-        error: err
-      });
-    });
-  }
-
-  // production error handler
-  // no stacktraces leaked to user
-  app.use(function(err, req, res, next) {
-    res.status(err.status || 500);
-    res.render('error', {
-      message: err.message,
-      error: {}
-    });
-  });
 
 
 app.use(methodOverride('_method'));
 
 
-module.exports = app;
+app.listen(process.env.PORT || 3000, function() {
+  console.log("The Modesto All Star Server is running");
+});

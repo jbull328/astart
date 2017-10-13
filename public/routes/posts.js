@@ -9,9 +9,16 @@ var mongoose = require('mongoose');
 var cloudinary = require("cloudinary");
 var multer = require("multer");
 var path = require('path');
-var upload = multer({ dest: 'public/img/avatars' });
+var dotenv = require("dotenv");
+var upload = multer({ dest: '.public/img/avatars' });
 
+dotenv.load();
 
+cloudinary.config({
+    cloud_name: process.env.CLOUD_NAME,
+    api_key: process.env.API_KEY,
+    api_secret: process.env.API_SECRET,
+});
 
 //   Project routes
 router.get('/:_id/projects/new', function(req, res) {

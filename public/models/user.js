@@ -2,7 +2,7 @@ var mongoose = require('mongoose');
 var bcrypt = require('bcryptjs');
 
 
-mongoose.connect('mongodb://localhost/nodeauth');
+mongoose.connect('mongodb://localhost/users');
 
 var db = mongoose.connection;
 
