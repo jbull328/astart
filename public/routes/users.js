@@ -8,7 +8,7 @@ var Blog = require('../models/userBlogs.js');
 var methodOverride = require("method-override");
 var cloudinary = require("cloudinary");
 var path = require('path');
-var upload = multer({ dest: 'public/img/avatars' });
+var upload = multer({ dest: './img/avatars' });
 var methodOverride = require("method-override");
 var expressSanitizer = require("express-sanitizer");
 
@@ -59,7 +59,7 @@ passport.use(new LocalStrategy(function(username, password, done){
   });
 }));
 
-router.post('/register', function(req, res, next) {
+router.post('/register', upload.single('avatar'), function(req, res, next) {
   var name = req.body.name;
   var email = req.body.email;
   var username = req.body.username;
@@ -67,43 +67,48 @@ router.post('/register', function(req, res, next) {
   var password2 = req.body.password2;
   var currentOccupation = req.body.currentOccupation;
   var description = req.body.description;
+  var avatar = req.file.path;
+  cloudinary.uploader.upload(avatar, function(result) {
+    var imageRef = result.url;
   
 
-  // Form Validator
-  req.checkBody('name','Name field is required').notEmpty();
-  req.checkBody('email','Email field is required').notEmpty();
-  req.checkBody('email','Email is not valid').isEmail();
-  req.checkBody('username','Username field is required').notEmpty();
-  req.checkBody('password','Password field is required').notEmpty();
-  req.checkBody('password2','Passwords do not match').equals(req.body.password);
+    // Form Validator
+    req.checkBody('name','Name field is required').notEmpty();
+    req.checkBody('email','Email field is required').notEmpty();
+    req.checkBody('email','Email is not valid').isEmail();
+    req.checkBody('username','Username field is required').notEmpty();
+    req.checkBody('password','Password field is required').notEmpty();
+    req.checkBody('password2','Passwords do not match').equals(req.body.password);
 
-  // Check Errors
-  var errors = req.validationErrors();
+    // Check Errors
+    var errors = req.validationErrors();
 
-  if(errors){
-  	res.render('register', {
-  		errors: errors
-  	});
-  } else{
-  	var newUser = new User({
-      name: name,
-      email: email,
-      username: username,
-      password: password,
-      currentOccupation: currentOccupation,
-      description: description,
-    });
+    if(errors){
+      res.render('register', {
+        errors: errors
+      });
+    } else{
+      var newUser = new User({
+        name: name,
+        email: email,
+        username: username,
+        password: password,
+        currentOccupation: currentOccupation,
+        description: description,
+        imageRef: imageRef,
+      });
 
-    User.createUser(newUser, function(err, user){
-      if(err) throw err;
-      console.log(user);
-    });
+      User.createUser(newUser, function(err, user){
+        if(err) throw err;
+        console.log(user);
+      });
 
-    req.flash('success', 'You are now registered and can login');
+      req.flash('success', 'You are now registered and can login');
 
-    res.location('/');
-    res.redirect('/showAll');
-  }
+      res.location('/');
+      res.redirect('/showAll');
+    }
+  });
 });
 
 router.get('/logout', function(req, res) {
@@ -131,7 +136,7 @@ router.post("/details/:id",  upload.single('avatar'), ensureAuthenticated, funct
   cloudinary.uploader.upload(avatar, function(result) {
   var imageRef = result.url;
 
-  User.findByIdAndUpdate(req.params.id, req.body.userRef, function(err, userRef) {
+  User.findByIdAndUpdate(req.params.id, req.body.userRef, imageRef, function(err, userRef) {
     var id = req.params.id;
     if (err) {
       console.log(err);
