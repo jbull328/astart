@@ -1,6 +1,8 @@
 var express = require('express');
 var router = express.Router();
 var User = require('../models/user.js');
+var multer = require('multer');
+var upload = multer({ dest: '.public/img/avatars' });
 var Project = require("../models/userProjects.js");
 var Blog = require('../models/userBlogs.js');
 var express = require("express");
@@ -10,7 +12,7 @@ var cloudinary = require("cloudinary");
 var multer = require("multer");
 var path = require('path');
 var dotenv = require("dotenv");
-var upload = multer({ dest: '.public/img/avatars' });
+
 
 dotenv.load();
 

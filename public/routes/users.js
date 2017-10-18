@@ -11,8 +11,18 @@ var path = require('path');
 var upload = multer({ dest: './img/avatars' });
 var methodOverride = require("method-override");
 var expressSanitizer = require("express-sanitizer");
+var dotenv = require("dotenv");
 
 var User = require('../models/user.js');
+
+dotenv.load();
+
+    //Cloudinary API config for cloud storage of images.
+    cloudinary.config({
+      cloud_name: process.env.CLOUD_NAME,
+      api_key: process.env.API_KEY,
+      api_secret: process.env.API_SECRET,
+  });
 
 /* GET users listing. */
 
@@ -67,9 +77,7 @@ router.post('/register', upload.single('avatar'), function(req, res, next) {
   var password2 = req.body.password2;
   var currentOccupation = req.body.currentOccupation;
   var description = req.body.description;
-  var avatar = req.file.path;
-  cloudinary.uploader.upload(avatar, function(result) {
-    var imageRef = result.url;
+  var imageRef = req.file.path;
   
 
     // Form Validator
@@ -108,7 +116,6 @@ router.post('/register', upload.single('avatar'), function(req, res, next) {
       res.location('/');
       res.redirect('/showAll');
     }
-  });
 });
 
 router.get('/logout', function(req, res) {
@@ -133,20 +140,20 @@ router.post("/details/:id",  upload.single('avatar'), ensureAuthenticated, funct
   var currentOccupation = req.body.currentOccupation;
   var description = req.body.description;
   var avatar = req.file.path;
-  cloudinary.uploader.upload(avatar, function(result) {
-  var imageRef = result.url;
+    cloudinary.uploader.upload(avatar, function(result) {
+    var imageRef = result.url;
 
-  User.findByIdAndUpdate(req.params.id, req.body.userRef, imageRef, function(err, userRef) {
-    var id = req.params.id;
-    if (err) {
-      console.log(err);
-      res.redirect("/users/showUser/" + id);
-    } else {
-      console.log(userRef);
-      res.redirect("/users/showUser/" + id);
-    }
+    User.findByIdAndUpdate(req.params.id, req.body.userRef, imageRef, function(err, userRef) {
+      var id = req.params.id;
+      if (err) {
+        console.log(err);
+        res.redirect("/users/showUser/" + id);
+      } else {
+        console.log(userRef);
+        res.redirect("/users/showUser/" + id);
+      }
+    });
   });
- });
 });
 
 //This is the user profile display route for both logged in and non logged in accounts.

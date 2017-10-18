@@ -1,5 +1,9 @@
 var mongoose = require('mongoose');
 var bcrypt = require('bcryptjs');
+var multer = require('multer');
+var cloudinary = require("cloudinary");
+var path = require('path');
+var upload = multer({ dest: './img/avatars' });
 
 
 mongoose.connect('mongodb://localhost/users');
@@ -65,5 +69,13 @@ module.exports.createUser = function(newUser, callback){
         newUser.password = hash;
         newUser.save(callback);
     });
+  });
+};
+
+
+module.exports.uploadAvatar = function(imageRef, callback) {
+  var avatar = req.file.path;
+  cloudinary.uploader.upload(avatar, function(result) {
+  var imageRef = result.url;
   });
 };

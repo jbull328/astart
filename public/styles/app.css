@@ -79,3 +79,8 @@
   max-width: 350px;
   max-height: 180px;
 }
+
+.centered {
+  margin: 0 auto;
+  width: 33%
+}
