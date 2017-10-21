@@ -23,7 +23,16 @@ var express = require("express"),
     userEdit = require('./public/routes/userEdit.js'),
     userDelete = require('./public/routes/userDelete.js'),
     showBlog = require('./public/routes/showBlog.js'),
-    showUserEdit = require('./public/routes/showUserEdit.js'),
+    showUserEdit = require('./public/routes/showUserEdit.js');
+    var favicon = require('serve-favicon');
+    var logger = require('morgan');
+    var session = require('express-session');
+    var cookieParser = require('cookie-parser');
+    var passport = require('passport');
+    var expressValidator = require('express-validator');
+    var LocalStrategy = require('passport-local').Strategy;
+    var flash = require('connect-flash');
+    var bcrypt = require('bcryptjs');
     app = express();
 
     app.set('views', __dirname + '/views');
@@ -40,21 +49,58 @@ var express = require("express"),
       api_secret: process.env.API_SECRET,
   });
 
-//   app.use(stormpath.init(app, {
-//     apiKeyId:     process.env.STORMPATH_API_KEY_ID || 'key',
-//     apiKeySecret: process.env.STORMPATH_API_KEY_SECRET || 'secret',
-//     secretKey:    process.env.STORMPATH_SECRET_KEY || 'key',
-//     application:  process.env.STORMPATH_URL || 'url',
-//     expand: {
-//       customData: true,
-//     },
-//     web: {
-//      login: {
-//        enabled: true,
-//        nextUri: "/user/new/"
-//      }
-//    }
-// }));
+  app.use(session({
+    secret:'secret',
+    saveUninitialized: true,
+    resave: true
+  }));
+
+  // Passport
+  app.use(passport.initialize());
+  app.use(passport.session());
+
+  // Validator
+  app.use(expressValidator({
+    errorFormatter: function(param, msg, value) {
+        var namespace = param.split('.')
+        , root    = namespace.shift()
+        , formParam = root;
+
+      while(namespace.length) {
+        formParam += '[' + namespace.shift() + ']';
+      }
+      return {
+        param : formParam,
+        msg   : msg,
+        value : value
+      };
+    }
+  }));
+
+  app.use(cookieParser());
+
+  app.use(flash());
+  app.use(function (req, res, next) {
+    res.locals.messages = require('express-messages')(req, res);
+    next();
+  });
+
+  app.get('*', function(req, res, next) {
+    res.locals.user = req.user || null;
+    next();
+  })
+
+  app.use('/', routes);
+  app.use('/users', users);
+  app.use('/posts/', posts);
+
+  // catch 404 and forward to error handler
+  app.use(function(req, res, next) {
+    var err = new Error('Not Found');
+    err.status = 404;
+    next(err);
+  });
+
 
 app.use(methodOverride('_method'));
 mongoose.connect('mongodb://localhost/modestoFCCUsers');
