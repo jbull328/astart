@@ -1,8 +1,8 @@
 # astart
 Modesto FCC profiles
+Pre-req's Mongodb, Node.js, Npm.
 
-
-To work on the project you will need ot clone the repo.
+To work on the project you will need ot clone the repo. Cd into the cloned repo folder
 
 Run NPM Install.
 
