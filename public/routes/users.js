@@ -51,7 +51,9 @@ passport.deserializeUser(function(id, done) {
   });
 });
 
-passport.use(new LocalStrategy(function(username, password, done){
+passport.use(new Lo  app.use('/', routes);
+app.use('/users', users);
+app.use('/posts/', posts);calStrategy(function(username, password, done){
   User.getUserByUsername(username, function(err, user){
     if(err) throw err;
     if(!user){
