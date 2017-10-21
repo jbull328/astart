@@ -90,9 +90,9 @@ var express = require("express"),
     next();
   })
 
-  app.use('/', routes);
-  app.use('/users', users);
-  app.use('/posts/', posts);
+  // app.use('/', routes);
+  // app.use('/users', users);
+  // app.use('/posts/', posts);
 
   // catch 404 and forward to error handler
   app.use(function(req, res, next) {
@@ -100,6 +100,7 @@ var express = require("express"),
     err.status = 404;
     next(err);
   });
+
 
 
 app.use(methodOverride('_method'));

@@ -1,0 +1,41 @@
+<% include partials/head %>
+
+<div class="container">
+
+    <div class="ui container" id="">
+        
+          <div class="ui container mainForm">
+            <div class="ui huge header">Login</div>
+            <% if (global.errors) { %>
+              <% for(var i=0; i < errors.length; i++) { %>
+                <div class="ui warning message transition hidden">
+                  <i class="close icon"></i>
+                 <div class="header">
+                  <%= error.msg %>
+                 </div>
+                </div>
+              <%  } %>
+            <%  } %>
+            <form class="ui form" action="/users/login" method="POST">
+            <div class="field">
+              <label>Username</label>
+              <input type="text" name="username" value="" placeholder="Username">
+            </div>
+            <div class="field">
+              <label>Password</label>
+              <input type="password" name="password" value=""placeholder="Password">
+            </div>
+            <button class="ui button" type="submit">Submit</button>
+           </form>
+          </div>
+        </div>
+
+        <div class="centered">
+          <p>Need an account? <a href="/users/register">Register</a></p>
+          <p>Or go <a href="/">home</a>.</p>
+        </div>  
+    </div>
+
+</div>
+
+<% include partials/foot %>
