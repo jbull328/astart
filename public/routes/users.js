@@ -51,9 +51,7 @@ passport.deserializeUser(function(id, done) {
   });
 });
 
-passport.use(new Lo  app.use('/', routes);
-app.use('/users', users);
-app.use('/posts/', posts);calStrategy(function(username, password, done){
+passport.use(new LocalStrategy(function(username, password, done){
   User.getUserByUsername(username, function(err, user){
     if(err) throw err;
     if(!user){
@@ -71,7 +69,7 @@ app.use('/posts/', posts);calStrategy(function(username, password, done){
   });
 }));
 
-router.post('/register', upload.single('avatar'), function(req, res, next) {
+router.post('/register',  function(req, res, next) {
   var name = req.body.name;
   var email = req.body.email;
   var username = req.body.username;
