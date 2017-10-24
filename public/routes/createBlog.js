@@ -4,7 +4,7 @@ var express = require("express"),
     mongoose = require('mongoose'),
     Blog = require('../models/userBlogs.js'),
     Project = require("../models/userProjects.js"),
-    FccUsers = require("../models/fccUsers.js"),
+    User = require("../models/fccUsers.js"),
     cloudinary = require("cloudinary"),
     multer = require("multer"),
     path = require('path'),
@@ -24,7 +24,7 @@ var express = require("express"),
           var blogImageRef = result.url;
           console.log(result);
           var newBlog = {blogTitle: blogTitle, blogImageRef: blogImageRef, blogBody: blogBody,};
-          FccUsers.findById(req.params._id, function(err, userRef) {
+          User.findById(req.params._id, function(err, userRef) {
             if(err) {
               console.log(err);
               res.redirect("/showUser/" + userRef._id);

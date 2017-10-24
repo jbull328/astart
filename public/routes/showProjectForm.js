@@ -3,7 +3,7 @@ var express = require("express"),
     bodyParser = require('body-parser'),
     mongoose = require('mongoose'),
     Project = require("../models/userProjects.js"),
-    FccUsers = require("../models/fccUsers.js"),
+    User = require("../models/fccUsers.js"),
     methodOverride = require("method-override"),
     expressSanitizer = require("express-sanitizer");
 
@@ -12,7 +12,7 @@ var express = require("express"),
     });
 
     router.get('/showUser/:_id/projects/new', function(req, res) {
-      FccUsers.findById(req.params._id, function(err, userRef) {
+      User.findById(req.params._id, function(err, userRef) {
       if (err) {
         console.log(err);
       } else {

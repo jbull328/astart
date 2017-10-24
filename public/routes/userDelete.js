@@ -3,7 +3,7 @@ var express = require("express"),
     bodyParser = require('body-parser'),
     mongoose = require('mongoose'),
     Project = require("../models/userProjects.js"),
-    FccUsers = require("../models/fccUsers.js"),
+    User = require("../models/fccUsers.js"),
     cloudinary = require("cloudinary"),
     multer = require("multer"),
     path = require('path'),
@@ -17,7 +17,7 @@ var express = require("express"),
 
 
     router.delete("/userDelete/:_id", function(req, res) {
-      FccUsers.findByIdAndRemove(req.params._id, function(err, userRef) {
+      User.findByIdAndRemove(req.params._id, function(err, userRef) {
         if (err) {
           console.log(err);
         } else {

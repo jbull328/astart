@@ -3,7 +3,7 @@ var express = require("express"),
     bodyParser = require('body-parser'),
     mongoose = require('mongoose'),
     Project = require("../models/userProjects.js"),
-    FccUsers = require("../models/fccUsers.js"),
+    User = require("../models/fccUsers.js"),
     cloudinary = require("cloudinary"),
     multer = require("multer"),
     path = require('path'),
@@ -24,7 +24,7 @@ var express = require("express"),
         var projImageRef = result.url;
         console.log(result);
         var newProject = {projTitle: projTitle, projDescription: projDescription, projImageRef: projImageRef, projLink: projLink,};
-        FccUsers.findById(req.params._id, function(err, userRef) {
+        User.findById(req.params._id, function(err, userRef) {
           if (err) {
             console.log(err);
             console.log(userRef);

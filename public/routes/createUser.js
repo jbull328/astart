@@ -3,7 +3,7 @@ var express = require("express"),
     bodyParser = require('body-parser'),
     mongoose = require('mongoose'),
     Project = require("../models/userProjects.js"),
-    FccUsers = require("../models/fccUsers.js"),
+    User = require("../models/fccUsers.js"),
     cloudinary = require("cloudinary"),
     multer = require("multer"),
     path = require('path'),
@@ -17,8 +17,7 @@ var express = require("express"),
 
     router.post('/user/new', upload.single('avatar'), function(req, res, next) {
 
-      var fName = req.body.fName;
-      var lName = req.body.lName;
+      var fName = req.body.name;
       var currentOccupation = req.body.currentOccupation;
       var userEmail = req.body.userEmail;
       var description = req.body.description;
@@ -29,7 +28,7 @@ var express = require("express"),
         console.log("image" + result + "~~~~~~~~~~~~~~~");
 
         var newUser = {fName: fName, lName: lName, description: description, currentOccupation: currentOccupation, userEmail: userEmail, imageRef: imageRef,};
-        FccUsers.create(newUser, function(err, newlyCreatedUser) {
+        User.create(newUser, function(err, newlyCreatedUser) {
 
         if (err) {
           console.log(err);

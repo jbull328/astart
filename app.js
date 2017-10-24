@@ -6,7 +6,7 @@ var express = require("express"),
     path = require('path'),
     router = express.Router(),
     upload = multer({ dest: 'public/img/avatars' }),
-    FccUsers = require('./public/models/fccUsers.js'),
+    User = require('./public/models/fccUsers.js'),
     Project = require('./public/models/userProjects.js'),
     Blog = require('./public/models/userBlogs.js')
     dotenv = require("dotenv"),
@@ -41,6 +41,9 @@ var express = require("express"),
     app.set("view engine", "ejs");
     app.use(express.static(__dirname + '/public'));
     dotenv.load();
+
+
+    var users = require('./public/routes/users.js');
 
     //Cloudinary API config for cloud storage of images.
     cloudinary.config({
@@ -91,20 +94,20 @@ var express = require("express"),
   })
 
   // app.use('/', routes);
-  // app.use('/users', users);
+  app.use('/users', users);
   // app.use('/posts/', posts);
 
   // catch 404 and forward to error handler
-  app.use(function(req, res, next) {
-    var err = new Error('Not Found');
-    err.status = 404;
-    next(err);
-  });
+//   app.use(function(req, res, next) {
+//     var err = new Error('Not Found');
+//     err.status = 404;
+//     next(err);
+//   });
+
 
 
 
 app.use(methodOverride('_method'));
-mongoose.connect('mongodb://localhost/modestoFCCUsers');
 
 app.get("/", function(req, res) {
   res.render('landing');
@@ -125,6 +128,13 @@ app.post("/showUser/:_id/userBlog/new", createBlog);
 app.put('/userEdit/:_id', userEdit);
 app.delete('/userDelete/:_id', userDelete);
 
+//Main auth Check function, put this in a rout to check for authentication  
+function ensureAuthenticated(req, res, next) {
+  if(req.isAuthenticated()){
+    return next();
+  }
+  res.redirect('/login');
+}
 
 app.listen(process.env.PORT || 3000, function() {
   console.log("The Modesto All Star Server is running");

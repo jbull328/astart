@@ -4,7 +4,7 @@ var express = require("express"),
     mongoose = require('mongoose'),
     Blog = require('../models/userBlogs.js'),
     Project = require("../models/userProjects.js"),
-    FccUsers = require("../models/fccUsers.js"),
+    User = require("../models/fccUsers.js"),
     methodOverride = require("method-override"),
     expressSanitizer = require("express-sanitizer");
 
@@ -13,7 +13,7 @@ var express = require("express"),
     });
 
     router.get('/showUser/:id', function(req, res) {
-      FccUsers.findById(req.params.id).populate('projects blogs').exec(function(err, userRef) {
+      User.findById(req.params.id).populate('projects blogs').exec(function(err, userRef) {
 
         if (err) {
           console.log(err);

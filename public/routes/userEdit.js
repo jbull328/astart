@@ -3,7 +3,7 @@ var express = require("express"),
     bodyParser = require('body-parser'),
     mongoose = require('mongoose'),
     Project = require("../models/userProjects.js"),
-    FccUsers = require("../models/fccUsers.js"),
+    User = require("../models/fccUsers.js"),
     cloudinary = require("cloudinary"),
     multer = require("multer"),
     path = require('path'),
@@ -18,7 +18,7 @@ var express = require("express"),
     router.put("/userEdit/:_id", function(req, res) {
       // req.body.customer.body = req.sanitize(req.customer.customer.body);
 
-      FccUsers.findByIdAndUpdate(req.params._id, req.body.userRef, function(err, userRef) {
+      User.findByIdAndUpdate(req.params._id, req.body.userRef, function(err, userRef) {
         var id = req.params._id;
         if (err) {
           console.log(err);

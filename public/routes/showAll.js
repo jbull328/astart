@@ -3,7 +3,7 @@ var express = require("express"),
     bodyParser = require('body-parser'),
     mongoose = require('mongoose'),
     Project = require("../models/userProjects.js"),
-    FccUsers = require("../models/fccUsers.js");
+    User = require("../models/fccUsers.js");
     // methodOverride = require("method-override"),
     // expressSanitizer = require("express-sanitizer");
 
@@ -12,14 +12,14 @@ var express = require("express"),
     });
 
     router.get("/showAll/", function(req, res) {
-      FccUsers.find(function(err, allUsers) {
+      User.find(function(err, userRef) {
         if (err) {
           console.log(err);
         } else {
-          res.render("showAll", {allUsers: allUsers,});
+          res.render("showAll", {userRef: userRef, user: req.user,});
         }
       });
-
+    
     });
 
   module.exports = router;
