@@ -13,7 +13,7 @@ var methodOverride = require("method-override");
 var expressSanitizer = require("express-sanitizer");
 var dotenv = require("dotenv");
 
-var User = require('../models/fccUsers.js');
+var User = require('../models/user.js');
 
 
 /* GET users listing. */

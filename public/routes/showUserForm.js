@@ -3,7 +3,7 @@ var express = require("express"),
     bodyParser = require('body-parser'),
     mongoose = require('mongoose'),
     Project = require("../models/userProjects.js"),
-    User = require("../models/fccUsers.js"),
+    User = require("../models/user.js"),
     methodOverride = require("method-override"),
     expressSanitizer = require("express-sanitizer");
 
