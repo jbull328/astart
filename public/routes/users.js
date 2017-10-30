@@ -8,7 +8,7 @@ var Blog = require('../models/userBlogs.js');
 var methodOverride = require("method-override");
 var cloudinary = require("cloudinary");
 var path = require('path');
-var upload = multer({ dest: './img/avatars' });
+var upload = multer({ dest: 'public/img/avatars' });
 var methodOverride = require("method-override");
 var expressSanitizer = require("express-sanitizer");
 var dotenv = require("dotenv");
@@ -75,9 +75,8 @@ router.post('/register',  function(req, res, next) {
   var username = req.body.username;
   var password = req.body.password;
   var password2 = req.body.password2;
-  var currentOccupation = req.body.currentOccupation;
-  var description = req.body.description;
-  var imageRef = req.file.path;
+  // var currentOccupation = req.body.currentOccupation;
+  // var description = req.body.description;
   
 
     // Form Validator
@@ -88,22 +87,14 @@ router.post('/register',  function(req, res, next) {
     req.checkBody('password','Password field is required').notEmpty();
     req.checkBody('password2','Passwords do not match').equals(req.body.password);
 
-    // Check Errors
-    var errors = req.validationErrors();
-
-    if(errors){
-      res.render('register', {
-        errors: errors
-      });
-    } else{
+  
       var newUser = new User({
         name: name,
         email: email,
         username: username,
         password: password,
-        currentOccupation: currentOccupation,
-        description: description,
-        imageRef: imageRef,
+        // currentOccupation: currentOccupation,
+        // description: description,
       });
 
       User.createUser(newUser, function(err, user){
@@ -115,7 +106,6 @@ router.post('/register',  function(req, res, next) {
 
       res.location('/');
       res.redirect('/showAll');
-    }
 });
 
 router.get('/logout', function(req, res) {
