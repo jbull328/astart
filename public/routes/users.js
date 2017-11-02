@@ -1,5 +1,6 @@
 var express = require('express');
 var router = express.Router();
+var path = require('path');
 var multer = require('multer');
 var passport = require('passport');
 var LocalStrategy = require('passport-local').Strategy;
@@ -7,7 +8,6 @@ var Project = require("../models/userProjects.js");
 var Blog = require('../models/userBlogs.js');
 var methodOverride = require("method-override");
 var cloudinary = require("cloudinary");
-var path = require('path');
 var upload = multer({ dest: 'public/img/avatars' });
 var methodOverride = require("method-override");
 var expressSanitizer = require("express-sanitizer");
@@ -75,26 +75,42 @@ router.post('/register',  function(req, res, next) {
   var username = req.body.username;
   var password = req.body.password;
   var password2 = req.body.password2;
-  // var currentOccupation = req.body.currentOccupation;
-  // var description = req.body.description;
+  var currentOccupation = req.body.currentOccupation;
+  var description = req.body.description;
+
+
+  if(req.file){
+  	console.log('Uploading File...');
+  	var imageRef = req.file.filename;
+  } else {
+  	console.log('No File Uploaded...');
+  	var imageRef = 'public/img/avatars/noImage.png';
+  }
   
 
-    // Form Validator
-    req.checkBody('name','Name field is required').notEmpty();
-    req.checkBody('email','Email field is required').notEmpty();
-    req.checkBody('email','Email is not valid').isEmail();
-    req.checkBody('username','Username field is required').notEmpty();
-    req.checkBody('password','Password field is required').notEmpty();
-    req.checkBody('password2','Passwords do not match').equals(req.body.password);
+    //Form Validator
+    // req.checkBody('name','Name field is required').notEmpty();
+    // req.checkBody('email','Email field is required').notEmpty();
+    // req.checkBody('email','Email is not valid').isEmail();
+    // req.checkBody('username','Username field is required').notEmpty();
+    // req.checkBody('password','Password field is required').notEmpty();
+    // req.checkBody('password2','Passwords do not match').equals(req.body.password);
 
-  
+    // var errors = req.validationErrors();
+    
+    //   if(errors){
+    //     res.render('register', {
+    //       errors: errors
+    //     });
+    //   } else{
       var newUser = new User({
         name: name,
         email: email,
         username: username,
         password: password,
-        // currentOccupation: currentOccupation,
-        // description: description,
+        currentOccupation: currentOccupation,
+        description: description,
+        imageRef: imageRef,
       });
 
       User.createUser(newUser, function(err, user){
@@ -106,6 +122,7 @@ router.post('/register',  function(req, res, next) {
 
       res.location('/');
       res.redirect('/showAll');
+    // }
 });
 
 router.get('/logout', function(req, res) {
