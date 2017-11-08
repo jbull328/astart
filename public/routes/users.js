@@ -1,19 +1,20 @@
 var express = require('express');
-var router = express.Router();
 var path = require('path');
+var router = express.Router();
+var bodyParser = require('body-parser');
 var multer = require('multer');
 var passport = require('passport');
 var LocalStrategy = require('passport-local').Strategy;
 var Project = require("../models/userProjects.js");
 var Blog = require('../models/userBlogs.js');
 var methodOverride = require("method-override");
+var upload = multer({ dest: '.public/img/avatars' });
 var cloudinary = require("cloudinary");
-var upload = multer({ dest: 'public/img/avatars' });
 var methodOverride = require("method-override");
 var expressSanitizer = require("express-sanitizer");
 var dotenv = require("dotenv");
 
-var User = require('../models/user.js');
+var User = require('../models/user');
 
 dotenv.load();
 
@@ -69,7 +70,7 @@ passport.use(new LocalStrategy(function(username, password, done){
   });
 }));
 
-router.post('/register',  function(req, res, next) {
+router.post('/register', upload.single('imageRef'), function(req, res, next) {
   var name = req.body.name;
   var email = req.body.email;
   var username = req.body.username;
@@ -88,21 +89,21 @@ router.post('/register',  function(req, res, next) {
   }
   
 
-    //Form Validator
-    // req.checkBody('name','Name field is required').notEmpty();
-    // req.checkBody('email','Email field is required').notEmpty();
-    // req.checkBody('email','Email is not valid').isEmail();
-    // req.checkBody('username','Username field is required').notEmpty();
-    // req.checkBody('password','Password field is required').notEmpty();
-    // req.checkBody('password2','Passwords do not match').equals(req.body.password);
+    // Form Validator
+    req.checkBody('name','Name field is required').notEmpty();
+    req.checkBody('email','Email field is required').notEmpty();
+    req.checkBody('email','Email is not valid').isEmail();
+    req.checkBody('username','Username field is required').notEmpty();
+    req.checkBody('password','Password field is required').notEmpty();
+    req.checkBody('password2','Passwords do not match').equals(req.body.password);
 
-    // var errors = req.validationErrors();
+    var errors = req.validationErrors();
     
-    //   if(errors){
-    //     res.render('register', {
-    //       errors: errors
-    //     });
-    //   } else{
+      if(errors){
+        res.render('register', {
+          errors: errors
+        });
+      } else{
       var newUser = new User({
         name: name,
         email: email,
@@ -122,7 +123,7 @@ router.post('/register',  function(req, res, next) {
 
       res.location('/');
       res.redirect('/showAll');
-    // }
+    }
 });
 
 router.get('/logout', function(req, res) {

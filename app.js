@@ -87,7 +87,7 @@ var express = require("express"),
   })
 
   app.use('/', routes);
-  app.use('/users', users);
+  app.use('/users/', users);
   app.use('/posts/', posts);
 
   // catch 404 and forward to error handler
@@ -100,6 +100,7 @@ var express = require("express"),
 
 
 app.use(methodOverride('_method'));
+mongoose.connect('mongodb://localhost/users');
 
 
 app.listen(process.env.PORT || 3000, function() {

@@ -1,10 +1,6 @@
+var mongodb = require('mongodb');
 var mongoose = require('mongoose');
 var bcrypt = require('bcryptjs');
-var multer = require('multer');
-var cloudinary = require("cloudinary");
-var path = require('path');
-var upload = multer({ dest: './img/avatars' });
-
 
 mongoose.connect('mongodb://localhost/users');
 
@@ -15,21 +11,11 @@ var UserSchema = mongoose.Schema({
       type: String,
       index: true
     },
-    password: {
-      type: String
-    },
-    email: {
-      type: String
-    },
-    name: {
-      type: String
-    },
-    profileimage: {
-      type: String
-    },
+    password: String,
+    email: String,
+    name: String,
     currentOccupation: String,
     description: String,
-    userEmail: String,
     imageRef: String,
     projects: [
         {
@@ -42,7 +28,7 @@ var UserSchema = mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: "Blog"
       }
-    ]
+    ],
 });
 
 
@@ -72,10 +58,3 @@ module.exports.createUser = function(newUser, callback){
   });
 };
 
-
-module.exports.uploadAvatar = function(imageRef, callback) {
-  var avatar = req.file.path;
-  cloudinary.uploader.upload(avatar, function(result) {
-  var imageRef = result.url;
-  });
-};
