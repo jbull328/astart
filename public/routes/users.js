@@ -8,7 +8,7 @@ var LocalStrategy = require('passport-local').Strategy;
 var Project = require("../models/userProjects.js");
 var Blog = require('../models/userBlogs.js');
 var methodOverride = require("method-override");
-var upload = multer({ dest: '.public/img/avatars' });
+var upload = multer({ dest: 'public/img/avatars' });
 var cloudinary = require("cloudinary");
 var methodOverride = require("method-override");
 var expressSanitizer = require("express-sanitizer");
@@ -143,12 +143,12 @@ router.get('/details/:id', ensureAuthenticated, function(req, res) {
   });
 });
 
-router.post("/details/:id",  upload.single('avatar'), ensureAuthenticated, function(req, res) {
+router.post("/details/:id",  upload.single('imageRef'), ensureAuthenticated, function(req, res) {
   // req.body.customer.body = req.sanitize(req.customer.customer.body);
   var currentOccupation = req.body.currentOccupation;
   var description = req.body.description;
-  var avatar = req.file.path;
-    cloudinary.uploader.upload(avatar, function(result) {
+  var imageRef = req.file.path;
+    cloudinary.uploader.upload(imageRef, function(result) {
     var imageRef = result.url;
 
     User.findByIdAndUpdate(req.params.id, req.body.userRef, imageRef, function(err, userRef) {

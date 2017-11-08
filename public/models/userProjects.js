@@ -4,7 +4,7 @@ mongoose.connect('mongodb://localhost/userProjects');
 
 var db = mongoose.connection;
 
-var userProjects = new mongoose.Schema({
+var userProjects = mongoose.Schema({
   projTitle: String,
   projDescription: String,
   projImageRef: String,
@@ -20,6 +20,6 @@ var userProjects = new mongoose.Schema({
   //   }
   // ]
 });
-var Project = mongoose.model("Project", userProjects);
+var Project = mongoose.model('Project', userProjects);
 
-module.exports = mongoose.model("Project", userProjects);
+module.exports = mongoose.model('Project', userProjects);

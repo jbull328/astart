@@ -27,6 +27,7 @@ var express = require("express"),
     var routes = require('./public/routes/index.js');
     var users = require('./public/routes/users.js');
     var posts = require('./public/routes/posts.js');
+    var sponsors = require('./public/routes/sponsors.js');
 
     app = express();
 
@@ -86,7 +87,7 @@ var express = require("express"),
     next();
   })
 
-  app.use('/', routes);
+  app.use('/', routes, sponsors);
   app.use('/users/', users);
   app.use('/posts/', posts);
 

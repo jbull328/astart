@@ -4,11 +4,11 @@ mongoose.connect('mongodb://localhost/userBolgs');
 
 var db = mongoose.connection;
 
-var userBlogs = new mongoose.Schema({
+var userBlogs = mongoose.Schema({
   blogTitle: String,
   blogImage: String,
   blogbody: String,
 });
-var Blog = mongoose.model("Blog", userBlogs);
+var Blog = mongoose.model('Blog', userBlogs);
 
-module.exports = mongoose.model("Blog", userBlogs);
+module.exports = mongoose.model('Blog', userBlogs);
