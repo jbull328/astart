@@ -1,4 +1,5 @@
-var express = require("express"),
+var express = require("express");
+    var path = require('path'),
     bodyParser = require("body-parser"),
     cloudinary = require("cloudinary"),
     multer = require("multer"),
@@ -10,7 +11,7 @@ var express = require("express"),
     dotenv = require("dotenv"),
     methodOverride = require("method-override"),
     expressSanitizer = require("express-sanitizer");
-    var path = require('path');
+    
     var favicon = require('serve-favicon');
     var logger = require('morgan');
     var session = require('express-session');

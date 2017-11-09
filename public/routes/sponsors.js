@@ -25,12 +25,12 @@ router.post('/requestInfo/', function(req, res) {
    var customerEmail = req.body.customerEmail;
    var phone = req.body.phone;
    var converted = false;
-   var newCustomer =  {customerfName, customerlName, companyName, customerEmail, phone, converted,}
+   var newCustomer =  {customerName, companyName, customerEmail, phone, converted,}
    Customer.create(newCustomer, function(err, customer) {
     if(err) {
         console.log("error creating customer ~~~~~" + err);
       } else {
-        console.log("Success " + customerfName + "from " + companyName);
+        console.log("Success " + customerName + " from " + companyName + " is interested in sponsoring");
         res.redirect("/");
       }
    });

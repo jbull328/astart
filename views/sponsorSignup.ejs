@@ -4,33 +4,26 @@
 
   <div class="ui container mainForm">
     <div class="ui huge header">Edit your profile</div>
-    <form class="ui form" action="/users/edit/<%=userRef.id%>?_method=PUT" method="POST">
+    <div class="ui header">Let us know about your interest in sponsoring our group and we will get back to you.</div>
+    <form class="ui form" action="/requestInfo" method="POST">
     <div class="field">
       <label>First Name</label>
-      <input type="text" name="userRef[fName]" value="<%= userRef.fName %>" placeholder="First Name">
+      <input type="text" name="customerName"  placeholder="Name">
     </div>
     <div class="field">
-      <label>Last Name</label>
-      <input type="text" name="userRef[lName]" value="<%= userRef.lName %>" placeholder="Last Name">
-    </div>
-    <div class="field">
-      <label>Current Occupation</label>
-      <input type="text" name="userRef[currentOccupation]" value="<%= userRef.currentOccupation %>" placeholder="Current Occupation">
-    </div>
-    <div class="field">
-      <label>Description</label>
-      <input type="text" name="userRef[description]" value="<%= userRef.description %>"placeholder="Description">
+      <label>Company</label>
+      <input type="text" name="companyName"  placeholder="Company">
     </div>
     <div class="field">
       <label>Email</label>
-      <input type="email" name="userRef[email]" value="<%= userRef.email %>" placeholder="Email">
+      <input type="email" name="customerEmail" placeholder="Email">
+    </div>
+    <div class="field">
+      <label>Phone</label>
+      <input type="text" name="phone" placeholder="Phone Number">
     </div>
     <button class="ui button" type="submit">Submit</button>
     <a href="/" class="ui button">Cancel</a>
-   </form>
-   <form id="deleteButton" action="/userDelete/<%=userRef.id%>?_method=DELETE" method="POST">
-     <button class="ui button">Delete<i class="icon trash"></i></button>
-
    </form>
   </div>
 </div>
