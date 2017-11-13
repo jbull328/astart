@@ -21,7 +21,7 @@
     "express-messages": "*",
     "express-sanitizer": "^1.0.2",
     "express-session": "^1.13.0",
-    "express-validator": "^2.19.1",
+    "express-validator": "^4.3.0",
     "method-override": "~1.0.0",
     "mongodb": "*",
     "mongoose": "^4.8.4",

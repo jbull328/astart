@@ -35,7 +35,6 @@ var express = require("express");
 
     app.set('views', __dirname + '/views');
     app.use(bodyParser.urlencoded({extended: true}));
-    app.use(expressSanitizer());
     app.set("view engine", "ejs");
     app.use(express.static(__dirname + '/public'));
     dotenv.load();
@@ -63,7 +62,7 @@ var express = require("express");
         var namespace = param.split('.')
         , root    = namespace.shift()
         , formParam = root;
-
+   
       while(namespace.length) {
         formParam += '[' + namespace.shift() + ']';
       }
@@ -74,6 +73,12 @@ var express = require("express");
       };
     }
   }));
+
+  app.use(function(req,res,next){
+    res.locals.userValue = null;
+    res.locals.errors = null;
+    next();
+})
 
   app.use(cookieParser());
 
@@ -87,7 +92,7 @@ var express = require("express");
     res.locals.user = req.user || null;
     next();
   })
-
+  
   app.use('/', routes, sponsors);
   app.use('/users/', users);
   app.use('/posts/', posts);

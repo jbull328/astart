@@ -8,10 +8,9 @@ var LocalStrategy = require('passport-local').Strategy;
 var Project = require("../models/userProjects.js");
 var Blog = require('../models/userBlogs.js');
 var methodOverride = require("method-override");
-var upload = multer({ dest: 'public/img/avatars' });
+var upload = multer({ dest: './img/avatars' });
 var cloudinary = require("cloudinary");
-var methodOverride = require("method-override");
-var expressSanitizer = require("express-sanitizer");
+var expressValidator = require('express-validator');
 var dotenv = require("dotenv");
 
 var User = require('../models/user');
@@ -81,11 +80,14 @@ router.post('/register', upload.single('imageRef'), function(req, res, next) {
 
 
   if(req.file){
-  	console.log('Uploading File...');
-  	var imageRef = req.file.filename;
+    console.log('Uploading File...');
+    cloudinary.uploader.upload(req.file, function(result) {
+      var imageRef = result.url;
+    });
+    return imageRef;
   } else {
   	console.log('No File Uploaded...');
-  	var imageRef = 'public/img/avatars/noImage.png';
+  	var imageRef = './img/avatars/noImage.png';
   }
   
 

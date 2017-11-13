@@ -1,6 +1,16 @@
 <% include partials/head %>
 
 <div class="ui container" id="">
+    <% if(errors) { %>
+      <% errors.forEach(function(err) { %>
+        <div class="ui warning message">
+          <i class="close icon"></i>
+         <div class="header">
+          <%= error.msg %>
+         </div>
+        </div>
+      <%  }) %>
+    <%  } %>
 
   <div class="ui container mainForm">
     <div class="ui huge header">Register</div>  
