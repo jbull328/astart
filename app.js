@@ -4,7 +4,7 @@ var express = require("express");
     cloudinary = require("cloudinary"),
     multer = require("multer"),
     router = express.Router(),
-    upload = multer({ dest: 'public/img/avatars' }),
+    upload = multer({ dest: './public/img/avatars' }),
     Project = require('./public/models/userProjects.js'),
     Blog = require('./public/models/userBlogs.js'),
     User = require('./public/models/user.js'),
@@ -28,6 +28,7 @@ var express = require("express");
     var routes = require('./public/routes/index.js');
     var users = require('./public/routes/users.js');
     var posts = require('./public/routes/posts.js');
+    var cohorts = require('./public/routes/cohorts.js');
     var sponsors = require('./public/routes/sponsors.js');
 
     app = express();
@@ -96,6 +97,7 @@ var express = require("express");
   app.use('/', routes, sponsors);
   app.use('/users/', users);
   app.use('/posts/', posts);
+  app.use('/cohorts/', cohorts);
 
   // catch 404 and forward to error handler
   app.use(function(req, res, next) {
