@@ -13,8 +13,9 @@
     <%  } %>
 
   <div class="ui container mainForm">
-    <div class="ui huge header">Register</div>  
-    <form class="ui form" action="/users/register" method="POST" enctype="multipart/form-data">
+    <div class="ui huge header">Sign Up</div>
+    <div class="ui text">We want to start you and your team off on the right foot. Sign up and answer honestly. We will try and groups together in to be sucsessfull. You might be grouped with those that are learning new skills, so allow for more time for learning.</div>  
+    <form class="ui form" action="/cohorts/cohortSignup" method="POST">
     <div class="field">
       <label>Name</label>
       <input type="text" name="name" value="" placeholder="Name">
@@ -24,28 +25,22 @@
       <input type="email" name="email" value="" placeholder="Email">
     </div>
     <div class="field">
-      <label>Username</label>
-      <input type="text" name="username" value="" placeholder="Username">
+      <label>Availability</label>
+      <select  name="availability" class="ui dropdown">
+        <option value="">Hours per Week</option>
+        <option value="1">3 - 7</option>
+        <option value="0">7 - 15</option>
+      </select>
     </div>
     <div class="field">
-      <label>Password</label>
-      <input type="password" name="password" value=""placeholder="Password">
+      <label>Level</label>
+      <input type="text" name="level" value="" placeholder="How long have you been programming?">
     </div>
-    <div class="field">
-      <label>Confirm Password</label>
-      <input type="password" name="password2" value="" placeholder="Password">
-    </div>
-    <div class="field">
-      <label>Current Occupation</label>
-      <input type="text" name="userRef[currentOccupation]"  placeholder="Current Occupation">
-    </div>
-    <div class="field">
-      <label>Description</label>
-      <input type="text" name="userRef[description]" placeholder="Description">
-    </div>
-    <div class="field">
-      <label>Avatar</label>
-      <input type="file" name="imageRef" placeholder="Image of You">
+    <div class="inline field">
+      <div class="ui toggle checkbox">
+        <input type="checkbox" name="commit">
+        <label>Do you commit to seeing the project through?</label>
+      </div>
     </div>
     <button class="ui button" type="submit">Submit</button>
     <a href="/" class="ui button">Cancel</a>
