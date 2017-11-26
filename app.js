@@ -1,3 +1,4 @@
+
 var express = require("express");
     var path = require('path'),
     bodyParser = require("body-parser"),
@@ -30,6 +31,7 @@ var express = require("express");
     var posts = require('./public/routes/posts.js');
     var cohorts = require('./public/routes/cohorts.js');
     var sponsors = require('./public/routes/sponsors.js');
+    var resources = require('./public/routes/resources.js');
 
     app = express();
 
@@ -94,7 +96,7 @@ var express = require("express");
     next();
   })
   
-  app.use('/', routes, sponsors);
+  app.use('/', routes, sponsors, resources);
   app.use('/users/', users);
   app.use('/posts/', posts);
   app.use('/cohorts/', cohorts);

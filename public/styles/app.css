@@ -20,6 +20,11 @@
 .mainForm {
   margin-top: 10%;
 }
+
+#resources {
+  margin-top: 10%;
+}
+
 #mastheadStyle {
   background-image: url(../img/footer_lodyas.png);
 }
