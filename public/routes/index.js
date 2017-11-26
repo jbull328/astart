@@ -3,6 +3,15 @@ var router = express.Router();
 var User = require('../models/user.js');
 var Project = require("../models/userProjects.js");
 var Blog = require('../models/userBlogs.js');
+var path = require('path');
+var bodyParser = require('body-parser');
+var multer = require('multer');
+var passport = require('passport');
+var LocalStrategy = require('passport-local').Strategy;
+var methodOverride = require("method-override");
+var upload = multer({ dest: 'astart/public/img/avatars/' });
+var cloudinary = require("cloudinary");
+var dotenv = require("dotenv");
 
 
 /* GET home page. */

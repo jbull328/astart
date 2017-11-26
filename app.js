@@ -1,10 +1,10 @@
 var express = require("express");
     var path = require('path'),
     bodyParser = require("body-parser"),
-    cloudinary = require("cloudinary"),
+    cloudinary = require("cloudinary").v2,
     multer = require("multer"),
     router = express.Router(),
-    upload = multer({ dest: './public/img/avatars' }),
+    upload = multer({ dest: __dirname +  '../public/img/avatars/' }),
     Project = require('./public/models/userProjects.js'),
     Blog = require('./public/models/userBlogs.js'),
     User = require('./public/models/user.js'),
