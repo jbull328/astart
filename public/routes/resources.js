@@ -10,6 +10,7 @@ var methodOverride = require("method-override");
 var upload = multer({ dest: 'astart/public/img/avatars/' });
 var cloudinary = require("cloudinary");
 var dotenv = require("dotenv");
+var Resource = require('../models.resources.js');
 
 router.get("/resources", ensureAuthenticated, function(req, res) {
     User.findById(req.params.id, function(err, userRef) {
