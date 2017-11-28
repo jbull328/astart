@@ -9,7 +9,8 @@ var resource = mongoose.Schema({
   resourceImage: String,
   resourceDescription: String,
   resourceUrl: String,
+  complete: Boolean,
 });
 var Resource = mongoose.model('Resource', resource);
 
-module.exports = mongoose.model('Resource', Resource);
+module.exports = mongoose.model('Resource', resource);

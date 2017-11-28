@@ -29,6 +29,12 @@ var UserSchema = mongoose.Schema({
         ref: "Blog"
       }
     ],
+    resources: [
+        {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: "Resources"
+        }
+    ],
 });
 
 
