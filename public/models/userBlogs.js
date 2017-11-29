@@ -4,7 +4,7 @@ mongoose.connect('mongodb://localhost/userBolgs');
 
 var db = mongoose.connection;
 
-var userBlogs = mongoose.Schema({
+var userBlogs = new mongoose.Schema({
   blogTitle: String,
   blogImage: String,
   blogbody: String,

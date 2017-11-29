@@ -1,16 +1,17 @@
+var mongodb = require('mongodb');
 var mongoose = require("mongoose");
 
 mongoose.connect('mongodb://localhost/resources');
 
 var db = mongoose.connection;
 
-var resource = mongoose.Schema({
+var resources = new mongoose.Schema({
   resourceTitle: String,
   resourceImage: String,
   resourceDescription: String,
   resourceUrl: String,
   complete: Boolean,
 });
-var Resource = mongoose.model('Resource', resource);
+var Resources = mongoose.model('Resources', resources);
 
-module.exports = mongoose.model('Resource', resource);
+module.exports = mongoose.model('Resources', resources);

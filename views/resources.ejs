@@ -1,29 +1,33 @@
 <% include partials/head %>
 
 <div class="row">
-  <div class="ui three column stacking grid container" id="resources">
+  <div class="ui two column stacking grid container" id="resources">
         <div class="">
             <h3 class="header">Resources</h3>
             <div class="description">Use these reasources to Accelerate and improve your learning</div>
         </div>
-        <div class="ui items">
-            <row class="item">
-                <div class="ui small image">
-                <img src="./img/avatars/noImage.png">
-                </div>
-                <div class="content">
-                <div class="header">Arrowhead Valley Camp</div>
-                <div class="meta">
-                    <span class="price">$1200</span>
-                    <span class="stay">1 Month</span>
-                </div>
-                <div class="description">
-                    <p></p>
-                </div>
-                </div>
-            </row>
-  </div>
+    </div>
 </div>
+        <div class="ui items">
+            <% resources.forEach(function(resources) { %>
+                <a href="#"><div class="item">
+                    <div class="ui small image">
+                    <img src="./img/avatars/noImage.png">
+                    </div>
+                    <div class="content">
+                    <div class="header">Arrowhead Valley Camp</div>
+                    <div class="meta">
+                        <span class="price">$1200</span>
+                        <span class="stay">1 Month</span>
+                    </div>
+                    <div class="description">
+                        <p></p>
+                    </div>
+                    </div>
+                    </div>
+                </a>
+            <%  }) %>
+        </div>
 
 
 <% include partials/foot %>

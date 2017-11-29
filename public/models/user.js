@@ -6,7 +6,7 @@ mongoose.connect('mongodb://localhost/users');
 
 var db = mongoose.connection;
 
-var UserSchema = mongoose.Schema({
+var UserSchema = new mongoose.Schema({
     username: {
       type: String,
       index: true
@@ -28,13 +28,7 @@ var UserSchema = mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: "Blog"
       }
-    ],
-    resources: [
-        {
-            type: mongoose.Schema.Types.ObjectId,
-            ref: "Resources"
-        }
-    ],
+    ]
 });
 
 

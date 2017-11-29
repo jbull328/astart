@@ -4,7 +4,7 @@ mongoose.connect('mongodb://localhost/cohorts');
 
 var db = mongoose.connection;
 
-var cohortUsers = mongoose.Schema({
+var cohortUsers = new mongoose.Schema({
   name: String,
   email: String,
   availability: String,

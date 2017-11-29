@@ -9,7 +9,7 @@ var multer = require('multer');
 var passport = require('passport');
 var LocalStrategy = require('passport-local').Strategy;
 var methodOverride = require("method-override");
-var upload = multer({ dest: 'astart/public/img/avatars/' });
+var upload = multer({ dest: '../img/avatars/' });
 var cloudinary = require("cloudinary");
 var dotenv = require("dotenv");
 
@@ -29,7 +29,7 @@ router.get("/showAll/", function(req, res) {
     }
   });
 
-});;
+});
 
 
 

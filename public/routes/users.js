@@ -8,12 +8,12 @@ var LocalStrategy = require('passport-local').Strategy;
 var Project = require("../models/userProjects.js");
 var Blog = require('../models/userBlogs.js');
 var methodOverride = require("method-override");
-var upload = multer({ dest:  'astart/public/img/avatars/' });
+var upload = multer({ dest: '../img/avatars/' });
 var cloudinary = require("cloudinary").v2;
 var expressValidator = require('express-validator');
 var dotenv = require("dotenv");
 
-var User = require('../models/user');
+var User = require('../models/user.js');
 
 dotenv.load();
 
@@ -137,6 +137,7 @@ router.get('/details/:id', ensureAuthenticated, function(req, res) {
     if (err) {
       console.log(err);
     }  else {
+      console.log(userRef + "created");
       res.render('userDetails', {userRef: userRef, user: req.user,});
     }
   });
@@ -175,6 +176,7 @@ router.get('/showUser/:id', function(req, res) {
               console.log(req.user)
               res.render("showUser", {userRef: userRef, projects: projects, blogs: blogs, user: req.user,});
             } else {
+              console.log(req.user)
               res.render("showUserPublic", {userRef: userRef, projects: projects, blogs: blogs,});
             }
         });

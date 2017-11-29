@@ -4,7 +4,7 @@ mongoose.connect('mongodb://localhost/customer');
 
 var db = mongoose.connection;
 
-var customer = mongoose.Schema({
+var customer = new mongoose.Schema({
   customerName: String,
   companyName: String,
   customerEmail: String,
