@@ -8,22 +8,23 @@
         </div>
     </div>
 </div>
-        <div class="ui items">
+
+        <div class="ui unstackable items" id="resourceStyles">
             <% resources.forEach(function(resources) { %>
-                <a href="<%= resources.resourceUrl %>"><div class="item">
+                <div class="item resourceStyles">
                     <div class="ui small image">
-                    <img src="<%= resources.resourceImage %>"
+                        <img src="<%= resources.resourceImage %>">
                     </div>
                     <div class="content">
-                    <div class="header"><%= resources.resourceTitle %></div>
-                    <div class="meta">
+                        <div class="header"><a href="<%= resources.resourceUrl %>"></a><%= resources.resourceTitle %></a></div>
+                        <div class="meta">
+                        </div>
+                        <div class="description">
+                            <%= resources.resourceDescription %>
+                        </div>
                     </div>
-                    <div class="description">
-                       <%= resources.resourceDescription %>
-                    </div>
-                    </div>
-                    </div>
-                </a>
+                </div>
+                
             <%  }) %>
         </div>
 
