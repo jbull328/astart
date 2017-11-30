@@ -144,12 +144,11 @@ router.get('/details/:id', ensureAuthenticated, function(req, res) {
 });
 
 router.post("/details/:id",  upload.single('imageRef'), ensureAuthenticated, function(req, res) {
-  // req.body.customer.body = req.sanitize(req.customer.customer.body);
   var currentOccupation = req.body.currentOccupation;
   var description = req.body.description;
   var imageRef = req.file.path;
 
-    User.findByIdAndUpdate(req.params.id, req.body.userRef, imageRef, function(err, userRef) {
+    User.findByIdAndUpdate(req.params.id, req.body.userRef, function(err, userRef) {
       var id = req.params.id;
       if (err) {
         console.log(err);
@@ -173,10 +172,10 @@ router.get('/showUser/:id', function(req, res) {
         } else {
           Blog.find(function(err, blogs) {
             if (req.user) {
-              console.log(req.user)
+              console.log(req.user + "=========== ref" + userRef);
               res.render("showUser", {userRef: userRef, projects: projects, blogs: blogs, user: req.user,});
             } else {
-              console.log(req.user)
+              console.log(req.user + "=========== ref" + userRef);
               res.render("showUserPublic", {userRef: userRef, projects: projects, blogs: blogs,});
             }
         });
