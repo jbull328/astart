@@ -1,0 +1,37 @@
+<% include partials/head %>
+
+<div class="ui container" id="">
+    <% if(errors) { %>
+      <% errors.forEach(function(err) { %>
+        <div class="ui warning message">
+          <i class="close icon"></i>
+         <div class="header">
+          <%= error.msg %>
+         </div>
+        </div>
+      <%  }) %>
+    <%  } %>
+
+  <div class="ui container mainForm">
+    <div class="ui huge header">Resources Add</div>  
+    <form class="ui form" action="/resourcesCreate" method="POST">
+    <div class="field">
+      <label>Title</label>
+      <input type="text" name="resourceTitle" value="" placeholder="Title">
+    </div>
+    <div class="field">
+      <label>Description</label>
+      <input type="text" name="resourceDescription" value="" placeholder="Description">
+    </div>
+    <div class="field">
+      <label>Url</label>
+      <input type="text" name="resourceUrl" value="" placeholder="Url">
+    </div>
+    <button class="ui button" type="submit">Submit</button>
+    <a href="/" class="ui button">Cancel</a>
+   </form>
+  </div>
+</div>
+
+
+<% include partials/foot %>

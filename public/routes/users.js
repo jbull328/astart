@@ -84,7 +84,7 @@ router.post('/register', upload.single('imageRef'), function(req, res, next) {
       console.log(imageRef);
   } else {
   	console.log('No File Uploaded...');
-  	var imageRef = './img/avatars/noImage.png';
+  	var imageRef = 'public/img/avatars/noImage.png';
   }
   
 
