@@ -69,7 +69,7 @@ passport.use(new LocalStrategy(function(username, password, done){
   });
 }));
 
-router.post('/register', upload.single('imageRef'), function(req, res, next) {
+router.post('/register', function(req, res, next) {
   var name = req.body.name;
   var email = req.body.email;
   var username = req.body.username;
