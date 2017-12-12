@@ -3,14 +3,12 @@ var router = express.Router();
 var path = require('path');
 var User = require('../models/user.js');
 var multer = require('multer');
-var upload = multer({ dest: 'public/img/avatars' });
+var upload = multer({ dest: '../img/avatars' });
 var Project = require("../models/userProjects.js");
 var Blog = require('../models/userBlogs.js');
-var express = require("express");
 var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
 var cloudinary = require("cloudinary");
-var multer = require("multer");
 var dotenv = require("dotenv");
 
 
@@ -23,7 +21,7 @@ cloudinary.config({
 });
 
 //   Project routes
-router.get('/:_id/projects/new', function(req, res) {
+router.get('/:_id/projects/new', ensureAuthenticated, function(req, res) {
     User.findById(req.params._id, function(err, userRef) {
     if (err) {
       console.log(err);
@@ -34,14 +32,11 @@ router.get('/:_id/projects/new', function(req, res) {
   });
   });
 
-router.post("/:_id/projects", upload.single('projImage'), function(req, res) {
+router.post("/:_id/projects", upload.single('projImageRef'), ensureAuthenticated, function(req, res) {
     var projTitle = req.body.projTitle;
     var projDescription = req.body.projDescription;
     var projLink = req.body.projLink;
-    var projImage = req.file.path;
-    cloudinary.uploader.upload(projImage, function(result) {
-      var projImageRef = result.url;
-      console.log(result);
+    var projImageRef = req.file;
       var newProject = {projTitle: projTitle, projDescription: projDescription, projImageRef: projImageRef, projLink: projLink,};
       User.findById(req.params._id, function(err, userRef) {
         if (err) {
@@ -62,14 +57,13 @@ router.post("/:_id/projects", upload.single('projImage'), function(req, res) {
         }
       });
   });
-  });
 
 
  
 
 // blog routes
 
-router.get('/:_id/userBlog/new', function(req, res) {
+router.get('/:_id/userBlog/new', ensureAuthenticated, function(req, res) {
     User.findById(req.params._id, function(err, userRef) {
     if (err) {
       console.log(err);
@@ -82,13 +76,10 @@ router.get('/:_id/userBlog/new', function(req, res) {
 
  
 
-  router.post("/:_id/userBlog/new", upload.single('blogImage'), function(req, res) {
+  router.post("/:_id/userBlog/new", upload.single('blogImageRef'), ensureAuthenticated, function(req, res) {
     var blogTitle = req.body.blogTitle;
-    var blogImage = req.file.path;
+    var blogImageRef = req.file;
     var blogBody = req.body.blogBody;
-    cloudinary.uploader.upload(blogImage, function(result) {
-      var blogImageRef = result.url;
-      console.log(result);
       var newBlog = {blogTitle: blogTitle, blogImageRef: blogImageRef, blogBody: blogBody,};
       User.findById(req.params._id, function(err, userRef) {
         if(err) {
@@ -105,7 +96,6 @@ router.get('/:_id/userBlog/new', function(req, res) {
             }
           });
         }
-    });
   });
 });
 

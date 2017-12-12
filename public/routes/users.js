@@ -69,7 +69,7 @@ passport.use(new LocalStrategy(function(username, password, done){
   });
 }));
 
-router.post('/register', function(req, res, next) {
+router.post('/register', upload.single('imageRef'), function(req, res, next) {
   var name = req.body.name;
   var email = req.body.email;
   var username = req.body.username;
@@ -161,7 +161,7 @@ router.post("/details/:id",  upload.single('imageRef'), ensureAuthenticated, fun
 });
 
 //This is the user profile display route for both logged in and non logged in accounts.
-router.get('/showUser/:id', function(req, res) {
+router.get('/showUser/:id', ensureAuthenticated, function(req, res) {
   User.findById(req.params.id).populate('projects blogs').exec(function(err, userRef) {
     if (err) {
       console.log(err);
