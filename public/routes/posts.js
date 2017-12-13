@@ -33,13 +33,16 @@ router.get('/:_id/projects/new', ensureAuthenticated, function(req, res) {
   });
 
 router.post("/:_id/projects", upload.single('projImage'), ensureAuthenticated, function(req, res) {
+    
     var projTitle = req.body.projTitle;
     var projDescription = req.body.projDescription;
     var projLink = req.body.projLink;
     var projImage = req.file.path;
+
     cloudinary.uploader.upload(projImage, function(result) {
-      var projImageRef = result.url;
-      console.log(result);
+    var projImageRef = result.url;
+    console.log(result.url);
+
       var newProject = {projTitle: projTitle, projDescription: projDescription, projImageRef: projImageRef, projLink: projLink,};
       User.findById(req.params._id, function(err, userRef) {
         if (err) {

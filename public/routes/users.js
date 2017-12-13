@@ -9,7 +9,7 @@ var Project = require("../models/userProjects.js");
 var Blog = require('../models/userBlogs.js');
 var methodOverride = require("method-override");
 var upload = multer({ dest: '../img/avatars/' });
-var cloudinary = require("cloudinary").v2;
+var cloudinary = require("cloudinary");
 var expressValidator = require('express-validator');
 var dotenv = require("dotenv");
 
@@ -79,6 +79,7 @@ router.post('/register', upload.single('imageRef'), function(req, res, next) {
   var description = req.body.description;
 
 
+
   if(req.file){
     var imageRef = req.file.path;
       console.log(imageRef);
@@ -87,6 +88,9 @@ router.post('/register', upload.single('imageRef'), function(req, res, next) {
   	var imageRef = 'public/img/avatars/noImage.png';
   }
   
+  cloudinary.uploader.upload(imageRef, function(result) {
+    var imageRef = result.url;
+    console.log(result);
 
     // Form Validator
     req.checkBody('name','Name field is required').notEmpty();
@@ -123,6 +127,7 @@ router.post('/register', upload.single('imageRef'), function(req, res, next) {
       res.location('/');
       res.redirect('/showAll');
     }
+  });
 });
 
 router.get('/logout', function(req, res) {
