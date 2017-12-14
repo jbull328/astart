@@ -4,7 +4,7 @@
 
   <div class="ui container mainForm">
     <div class="ui huge header">Add some details to your profile</div>
-    <form class="ui form" action="/users/details/<%=userRef.id%>?_method=PUT" method="POST" enctype="multipart/form-data">
+    <form class="ui form" action="/users/details/<%= userRef.id %>?_method=PUT" method="POST" enctype="multipart/form-data">
     <div class="field">
       <label>Name</label>
       <input type="text" name="userRef[name]" value="<%= userRef.name %>" placeholder="First Name">
@@ -23,7 +23,7 @@
     </div>
     <div class="field">
       <label>Avatar</label>
-      <input type="file" name="imageRef" placeholder="Image of You">
+      <input type="file" name="userRef[imageRef]" placeholder="Image of You">
     </div>
     <button class="ui button" type="submit">Submit</button>
     <a href="/" class="ui button">Cancel</a>
