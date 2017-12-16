@@ -150,26 +150,17 @@ router.get('/details/:id', ensureAuthenticated, function(req, res) {
 });
 
 router.put("/details/:id",  upload.single('imageRef'), ensureAuthenticated, function(req, res) {
-  var currentOccupation = req.body.currentOccupation;
-  var description = req.body.description;
-  var imageRef = req.file.path;
   
-  cloudinary.uploader.upload(imageRef, function(result) {
-    var imageRef = result.url;
-    console.log(result.url);
-
-    User.findByIdAndUpdate(req.params.id, req.body.userRef, function(err, userRef) {
+    User.findByIdAndUpdate(req.params._id, req.body.userRef, {new: true}, function(err, userRef) {
       console.log("updated user~~~~~~" + userRef + "~~~~~~~~~~~~~~~~~~~~~");
       var id = req.params.id;
       if (err) {
         console.log(err);
         res.redirect("/users/showUser/" + id);
       } else {
-        console.log(userRef);
         res.redirect("/users/showUser/" + id);
       }
     });
-  });
 });
 
 //This is the user profile display route for both logged in and non logged in accounts.

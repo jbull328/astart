@@ -42,6 +42,7 @@ var express = require("express");
     app.set("view engine", "ejs");
     app.use(express.static(__dirname + '/public'));
     dotenv.load();
+    
 
     //Cloudinary API config for cloud storage of images.
     cloudinary.config({
@@ -92,11 +93,15 @@ var express = require("express");
     next();
   });
 
+  
+
   app.get('*', function(req, res, next) {
     res.locals.user = req.user || null;
     next();
   })
   
+  app.use(methodOverride("_method"));
+
   app.use('/', routes, sponsors, resources);
   app.use('/users/', users);
   app.use('/posts/', posts);
@@ -111,7 +116,6 @@ var express = require("express");
 
 
 
-app.use(methodOverride('_method'));
 mongoose.connect('mongodb://localhost/users');
 
 
